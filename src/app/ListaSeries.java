@@ -1,5 +1,7 @@
 package app;
 
+import Interfaces.I_rud;
+
 public class ListaSeries implements I_rud{
 
 	@Override

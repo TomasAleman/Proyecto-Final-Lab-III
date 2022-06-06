@@ -3,6 +3,8 @@ package app;
 import java.util.Iterator;
 import java.util.Map;
 
+import Interfaces.I_rud;
+
 public class ListaEstandares implements I_rud{
 
     private GenericHashMap<String,Estandar>hashmapUsuariosEstandar;

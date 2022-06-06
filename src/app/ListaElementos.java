@@ -2,6 +2,8 @@ package app;
 
 import java.util.Iterator;
 
+import Interfaces.I_rud;
+
 public class ListaElementos implements I_rud {
 
 	private GenericHashSet<Elemento> hashSetElementos;
