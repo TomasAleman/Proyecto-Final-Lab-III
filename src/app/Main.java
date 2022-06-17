@@ -2,6 +2,24 @@ package app;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
+import elementos.Clasificacion;
+import elementos.Elemento;
+import elementos.Genero;
+import elementos.ListaElementos;
+import excepciones.ExcExistencia;
+import json.JsonUtiles;
+import peliculas.Pelicula;
+import series.Serie;
+import series.Temporada;
+import usuarios.Admin;
+import usuarios.Estandar;
+import usuarios.ListaAdmins;
+import usuarios.ListaEstandares;
+import usuarios.ListaUsuarios;
+import usuarios.Usuario;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -23,36 +41,98 @@ public class Main {
 		Pelicula pelicula9 = new Pelicula("La mujer en la ventana", 3, Genero.SUSPENSO, Clasificacion.MAS18, "La Dra. Anna Fox pasa sus días encerrada en su casa de Nueva York, bebiendo vino mientras ve viejas películas y espía a sus vecinos. Un día, mientras mira por la ventana, ve algo que sucede enfrente de su casa, en el hogar de los Russell, una familia a la que todo el barrio considera ejemplar.", 2021, "Amy Adams, Gary Oldman, Anthony Mackie", "1:41");
 		Pelicula pelicula10 = new Pelicula("Fractura", 2, Genero.SUSPENSO, Clasificacion.MAS13, "Ray y su mujer viajan con su hija por el país, pero en una parada en una gasolinera, la pequeña se tropieza y fractura el brazo. Tras varias horas de espera en el hospital, la niña es atendida y Ray, exhausto, se queda dormido. Al despertar, no hay nadie con él, ni noticias de su mujer e hija.", 2019, "Sam Worthington, Lily Rabe, Stephen Tobolowsky", "1:40");
 
+	    // Test agregar elementos
 		ListaElementos elementos =new ListaElementos();
 		
 		elementos.agregar(serie1);
 		elementos.agregar(pelicula1);
+		elementos.agregar(pelicula1); 
 		elementos.agregar(pelicula2);
 		elementos.agregar(pelicula3);
 		elementos.agregar(pelicula4);
 		elementos.agregar(pelicula5);
 		elementos.agregar(pelicula6);
 		elementos.agregar(pelicula7);
-		elementos.agregar(pelicula8);
+		elementos.agregar(pelicula8);		
 		
-		
+		// Test mostrar elementos
 		System.out.println(elementos.mostrarTodo());
 		
-		//System.out.println(pelicula7);
-		//System.out.println(serie1);
+		// Test borrado de una Serie y una Pelicula
+		/*
+		System.out.println("\n > Borrando...");
+		elementos.borrar(serie1);
+		elementos.borrar(pelicula2);
+		System.out.println(elementos.mostrarTodo());
+		*/
 		
-		System.out.println(elementos.buscar("Stranger Things"));
-	
-		/*Estandar user1 =new Estandar("tomi@gmail.com", "39254");
-		Admin admin1 =new Admin("enzo@gmail.com","12345");
-
-		ListaEstandares usuariosEstandar = new ListaEstandares();
+		// Test buscar elementos
+		Elemento elementoBuscar = elementos.buscar("Stranger Things");
+		if(elementoBuscar != null)
+		{
+			System.out.println("\n> Elemento encontrado: "+elementoBuscar.toString());
+		}
+		else
+		{
+			System.out.println("\n> El elemento buscado no existe");
+		}
+				
+		Estandar user1 = new Estandar("tomi@gmail.com", "39254");
+		Admin admin1 = new Admin("enzo@gmail.com","12345");
 		
-		usuariosEstandar.agregar(user1);
-		System.out.println(usuariosEstandar.buscar("tomi@gmail.com"));
+		// Test agregar usuarios
+		ListaUsuarios usuarios = new ListaUsuarios();
 		
-		System.out.println(admin1);
-		System.out.println(user1);*/
-	
+		usuarios.agregar(user1);
+		usuarios.agregar(admin1);		
+		
+		// Test mostrar usuarios
+		String listaUsuarios = usuarios.mostrarTodo();
+		if(!listaUsuarios.isEmpty())
+		{
+			System.out.println("\n"+listaUsuarios);
+		}
+		else
+		{
+			System.out.println("\n> No hay usuarios registrados.");
+		}
+		
+		// Test buscar usuarios 
+		Usuario usuarioBuscar = usuarios.buscar("tomi@gmail.com");
+		if(usuarioBuscar != null)
+		{
+			System.out.println("\n> Usuario encontrado: "+usuarioBuscar.toString());
+		}
+		else
+		{
+			System.out.println("\n> El usuario buscado no existe");
+		}
+		
+		// Test borrado de usuarios
+		/*
+		System.out.println("\nBorrando...");
+		usuarios.borrar(user1);
+		usuarios.borrar(admin1);
+		*/
+		
+		
+		//Comprobando que se hayan borrado exitosamente
+		/*
+		listaUsuarios = usuarios.mostrarTodo();
+		if(!listaUsuarios.isEmpty())
+		{
+			System.out.println("\n"+listaUsuarios);
+		}
+		else
+		{
+			System.out.println("\n> No hay usuarios estándar.");
+		}
+		*/
+		
+		JsonUtiles json = new JsonUtiles();
+		JSONObject datos = json.exportarToJSON(usuarios,elementos);
+		json.grabarJSON(datos);
+		String contenidoJSON = json.leer();
+		System.out.println(contenidoJSON);
 	}
 }

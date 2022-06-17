@@ -1,12 +1,16 @@
-package Interfaces;
+package interfaces;
 
-public interface I_rud {
+import excepciones.ExcExistencia;
 
-	public void agregar(Object o);
+public interface I_RUD <T>{
+
+	public void agregar(T o);
 	
-	public void borrar(Object o);
+	public void borrar(T o);
 	
-	public Object buscar (String nombre);
+	public T buscar (String nombre); 
+	
+	public String mostrarTodo();
 	
 	
 }

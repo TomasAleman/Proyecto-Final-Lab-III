@@ -1,6 +1,9 @@
-package app;
+package usuarios;
 
 import java.time.LocalDate;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public abstract class Usuario {
 
@@ -52,5 +55,7 @@ public abstract class Usuario {
 		return "\nMail: "+ getMail() +"\nClave: "+getClave() +"\nFecha de Inicio: "+getFechaDeInicio();
 	}
 	
+
+	public abstract JSONObject devolverJsonObject() throws JSONException;
 	
 }

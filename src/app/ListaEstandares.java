@@ -27,13 +27,13 @@ public class ListaEstandares implements I_rud{
     }
 
     @Override
-    public void borrar(Object o) {
-    	Estandar aBorrar = (Estandar)o;
+    public void borrar(String email) {
+    	Estandar aBorrar = this.buscar(email);
         hashmapUsuariosEstandar.eliminar(aBorrar.getMail());
     }
 
     @Override
-    public Object buscar(String email) {
+    public Estandar buscar(String email) {
     	Iterator<Map.Entry<String, Estandar>> iterador = hashmapUsuariosEstandar.iterador();
 		boolean existe = false;
 		Estandar aRetornar = new Estandar();

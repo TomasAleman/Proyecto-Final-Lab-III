@@ -34,13 +34,13 @@ public class ListaAdmins implements I_rud{
 	}
 
 	@Override
-	public void borrar(Object o) {
-		Admin aEliminar = (Admin)o;
+	public void borrar(String nombre) {
+		Admin aEliminar =this.buscar(nombre);
 		lista.eliminar(aEliminar.getMail());
 	}
 
 	@Override
-	public Object buscar(String email) {
+	public Admin buscar(String email) {
 		Iterator<Map.Entry<String, Admin>> iterador = lista.iterador();
 		boolean existe = false;
 		Admin aRetornar = new Admin();
@@ -58,6 +58,12 @@ public class ListaAdmins implements I_rud{
 		}else {
 			return null;
 		}
+	}
+
+	@Override
+	public String listar() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
