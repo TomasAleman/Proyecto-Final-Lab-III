@@ -5,7 +5,7 @@ import java.util.Iterator;
 import contenedoresGenericos.GenericHashSet;
 import elementos.Elemento;
 import excepciones.ExcExistencia;
-import interfaces.I_RUD;
+import Interfaces.I_RUD;
 import peliculas.Pelicula;
 import series.Serie;
 
