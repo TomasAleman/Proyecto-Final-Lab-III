@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,12 +55,13 @@ public class JsonUtiles {
 		{
 			JSONArray jsonArrayUsuarios = new JSONArray();
 			JSONArray jsonArrayElementos = new JSONArray();
-			Iterator entriesUsuarios = usu.iterador();
-			Iterator entriesElementos = ele.iterador();
+			Iterator<Map.Entry<String, Usuario>> entriesUsuarios = usu.iterador();
+			Iterator<Elemento> entriesElementos = ele.iterador();
 			
 			while(entriesUsuarios.hasNext())
 			{
-				Usuario usuActual = (Usuario) entriesUsuarios.next();
+				Map.Entry<String, Usuario> entryActual = entriesUsuarios.next();
+				Usuario usuActual = (Usuario) entryActual.getValue();
 				jsonArrayUsuarios.put(usuActual.devolverJsonObject());
 			}
 			

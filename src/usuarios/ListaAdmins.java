@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import contenedoresGenericos.GenericHashMap;
-import excepciones.ExcExistencia;
+import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;
 
 public class ListaAdmins implements I_RUD<Admin>{
@@ -27,6 +27,10 @@ public class ListaAdmins implements I_RUD<Admin>{
 	}
 
 	//metodos
+	public boolean contieneMail(String mail)
+	{
+		return hashmapAdmins.contieneKey(mail);
+	}
 	
 	@Override
     public String mostrarTodo() {
@@ -48,10 +52,10 @@ public class ListaAdmins implements I_RUD<Admin>{
 		}
 		else
 		{
-			throw new ExcExistencia("\n> El admin "+o.getMail()+" ya existe");
+			throw new ExcepcionExistencia("\n> El admin "+o.getMail()+" ya existe");
 		}
 		}
-		catch(ExcExistencia e)
+		catch(ExcepcionExistencia e)
 		{
 			System.out.println(e.getMessage());
 		}

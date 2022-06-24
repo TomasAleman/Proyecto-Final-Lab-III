@@ -4,41 +4,42 @@ import java.util.Iterator;
 import java.util.Map;
 
 import contenedoresGenericos.GenericHashMap;
-import excepciones.ExcExistencia;
+import contenedoresGenericos.GenericHashSet;
+import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;
 
 public class ListaPeliculas implements I_RUD<Pelicula>{
 	
-	private GenericHashMap<Integer, Pelicula> hashmapPeliculas;
+	private GenericHashSet <Pelicula> hashSetPeliculas;
 	
 	public ListaPeliculas() {
-		hashmapPeliculas = new GenericHashMap<Integer, Pelicula>();
+		hashSetPeliculas = new GenericHashSet<>();
 	}
 	
 	@Override
     public String mostrarTodo() {
 		String contenido="";
-		Iterator<Map.Entry<Integer,Pelicula>> iterador = hashmapPeliculas.iterador();
+		Iterator<Pelicula> iterador = hashSetPeliculas.iterador();
 		while(iterador.hasNext()) {
 			contenido += iterador.next().toString();
 		}
-		return contenido; 
+		return contenido;  
 	}
 
 	@Override
 	public void agregar(Pelicula o){
 		try
 		{
-		if(!hashmapPeliculas.contieneValue(o))
+		if(!hashSetPeliculas.contiene(o))
 		{
-		hashmapPeliculas.agregar(o.getId(), o);
+		hashSetPeliculas.agregar(o);;
 		}
 		else
 		{
-			throw new ExcExistencia("\n> La pelicula "+o.getNombre()+" ya existe");
+			throw new ExcepcionExistencia("\n> La pelicula "+o.getNombre()+" ya existe");
 		}	
 		}
-		catch(ExcExistencia e)
+		catch(ExcepcionExistencia e)
 		{
 			System.out.println(e.getMessage());
 		}
@@ -48,26 +49,25 @@ public class ListaPeliculas implements I_RUD<Pelicula>{
 	@Override
 	public void borrar(Pelicula o) 
 	{
-		hashmapPeliculas.eliminar(o.getId());
+		hashSetPeliculas.eliminar(o);
 	}
 
 	@Override
 	public Pelicula buscar(String nombre) {
-	    Iterator<Map.Entry<Integer, Pelicula>> iterador = hashmapPeliculas.iterador();
-		boolean existe = false;
-		Pelicula aRetornar = null;
-		Pelicula actual;
-		
-		while (iterador.hasNext() && existe == false) {
-			Map.Entry<Integer, Pelicula> entrada = iterador.next();
-			actual = entrada.getValue();
-			if (nombre.equalsIgnoreCase(actual.getNombre())) {
-				aRetornar = actual;
-				existe = true;
-			}
-		}	
-		
-		return aRetornar;
+	  Iterator<Pelicula> iterador = hashSetPeliculas.iterador();
+			boolean existe = false;
+			Pelicula aRetornar = null;
+			Pelicula actual;
+			
+			while (iterador.hasNext() && existe == false) {
+				actual = iterador.next();
+				if (nombre.equalsIgnoreCase(actual.getNombre())) {
+					aRetornar = actual;
+					existe = true;
+				}
+			}	
+			
+			return aRetornar;
 	}
 
 }

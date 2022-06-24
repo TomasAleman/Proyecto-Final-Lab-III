@@ -3,6 +3,7 @@ package contenedoresGenericos;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class GenericHashMap<K,V> {
 	
@@ -40,7 +41,7 @@ public class GenericHashMap<K,V> {
 		return hashMap.containsValue(value);
 	}
 	
-	public Iterator iterador () {
+	public Iterator<Entry<K, V>> iterador () {
 		return hashMap.entrySet().iterator();
 	}
 

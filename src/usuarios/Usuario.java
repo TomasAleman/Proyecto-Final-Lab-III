@@ -11,6 +11,7 @@ public abstract class Usuario {
 	private String clave;
 	private LocalDate fechaDeInicio;
 
+
 	// constructores
 	public Usuario(String mail, String clave) {
 		this.mail = mail;
@@ -26,6 +27,7 @@ public abstract class Usuario {
 		}
 
 	// getters y setters
+		
 	public String getMail() {
 		return mail;
 	}

@@ -6,28 +6,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Estandar extends Usuario {
-
-	private Perfil listaPerfiles[];
+	private ListaPerfiles listaPerfiles;
 	
 	
 	public Estandar (String mail, String clave) {
 		super(mail, clave);
-		listaPerfiles=new Perfil[4];	
+		listaPerfiles = new ListaPerfiles();
 	}
 	
 	public Estandar () {
 		super();
-		listaPerfiles=new Perfil[4];	
+		listaPerfiles = new ListaPerfiles();	
 	}
 
-	public Perfil[] getListaPerfiles() {
+	public ListaPerfiles getListaPerfiles() {
 		return listaPerfiles;
 	}
 
-	public void setListaPerfiles(Perfil[] listaPerfiles) {
+	public void setListaPerfiles(ListaPerfiles listaPerfiles) {
 		this.listaPerfiles = listaPerfiles;
 	}
-
+	
 	@Override
 	public String toString() {
 		

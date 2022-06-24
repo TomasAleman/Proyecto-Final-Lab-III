@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import contenedoresGenericos.GenericHashMap;
-import excepciones.ExcExistencia;
+import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;
 
 public class ListaEstandares implements I_RUD<Estandar>{
@@ -41,10 +41,10 @@ public class ListaEstandares implements I_RUD<Estandar>{
     	}
     	else
     	{
-    		throw new ExcExistencia("\n> El usuario "+o.getMail()+" ya existe");
+    		throw new ExcepcionExistencia("\n> El usuario "+o.getMail()+" ya existe");
     	}	
     	}
-    	catch(ExcExistencia e)
+    	catch(ExcepcionExistencia e)
 		{
 			System.out.println(e.getMessage());
 		}

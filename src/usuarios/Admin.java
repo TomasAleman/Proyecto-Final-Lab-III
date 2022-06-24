@@ -2,7 +2,6 @@ package usuarios;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import peliculas.ListaPeliculas;
 import series.ListaSeries;
 

@@ -1,99 +1,103 @@
 package usuarios;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import contenedoresGenericos.GenericHashSet;
-import elementos.Elemento;
-import excepciones.ExcExistencia;
-import Interfaces.I_RUD;
-import peliculas.Pelicula;
-import series.Serie;
+import contenedoresGenericos.GenericHashMap;
+import excepciones.ExcepcionExistencia;
 
-public class ListaUsuarios implements I_RUD<Usuario>{
-	private GenericHashSet<Usuario> hashsetUsuarios;
+
+public class ListaUsuarios {
+	private GenericHashMap<String,Usuario> MapUsuarios;
 	
 	// Constructores
 		public ListaUsuarios() {
-			hashsetUsuarios = new GenericHashSet<Usuario>();
+			MapUsuarios = new GenericHashMap<String,Usuario>();
 		}
 
-		public ListaUsuarios(GenericHashSet<Usuario> hashsetUsuarios) {
-			this.hashsetUsuarios = hashsetUsuarios;
+		public ListaUsuarios(GenericHashMap<String,Usuario> MapUsuarios) {
+			this.MapUsuarios = MapUsuarios;
 		}
 
 		// getters y setters
-		public GenericHashSet<Usuario> getHashsetUsuarios() {
-			return hashsetUsuarios;
+		public GenericHashMap<String,Usuario> getHashsetUsuarios() {
+			return MapUsuarios;
 		}
 
-		public void setHashSetElementos(GenericHashSet<Usuario> hashsetUsuarios) {
-			this.hashsetUsuarios = hashsetUsuarios;
+		public void setHashSetElementos(GenericHashMap<String,Usuario> MapUsuarios) {
+			this.MapUsuarios = MapUsuarios;
 		}
 
 		// Métodos
-		public Iterator iterador()
-		{
-			return hashsetUsuarios.iterador();
-		}
 		
-		public boolean verSiExiste(Usuario u) {
-			boolean existe = hashsetUsuarios.contiene(u);
+		public boolean verSiExiste(String mail) {
+			boolean existe = MapUsuarios.contieneKey(mail);
 			return existe;
 		}
 		
 
-		public String mostrarTodo() {
-			String contenido="";
-			Iterator<Usuario> iterador = hashsetUsuarios.iterador();
-			while(iterador.hasNext()) {
-				contenido += iterador.next().toString();
+			public String mostrarTodo() {
+				String contenido="";
+				Iterator<Map.Entry<String,Usuario>> iterador = MapUsuarios.iterador();
+				while(iterador.hasNext()) {
+					contenido += iterador.next().toString();
+				}
+				return contenido; 
 			}
-			return contenido;
-		}
 
-		@Override
-		public void agregar(Usuario u){
+		public void agregar(Usuario user){
 			try
 			{
-				if(hashsetUsuarios.contiene(u) == false)
+				if(MapUsuarios.contieneKey(user.getMail()) == false)
 				{
-					hashsetUsuarios.agregar(u);
+					MapUsuarios.agregar(user.getMail(),user);
 				}
 				else
 				{
-					throw new ExcExistencia("\n> El usuario "+u.getMail()+" ya existe");
+					throw new ExcepcionExistencia("\n> El usuario "+user.getMail()+" ya existe");
 				}
 			}
-			catch(ExcExistencia e)
+			catch(ExcepcionExistencia e)
 			{
 				System.out.println(e.getMessage()); 
 			}
 							
 		}
 
-		@Override
-		public void borrar(Usuario u) {
-			
-			hashsetUsuarios.eliminar(u);
+		public void borrar(String mail) 
+		{
+			MapUsuarios.eliminar(mail);
 		}
 
-		@Override
 		public Usuario buscar(String mail) {
-			Iterator<Usuario> iterador = hashsetUsuarios.iterador();
+		    Iterator<Map.Entry<String, Usuario>> iterador = MapUsuarios.iterador();
 			boolean existe = false;
 			Usuario aRetornar = null;
-			Usuario actual;		
+			Usuario actual;
 			
 			while (iterador.hasNext() && existe == false) {
-				actual = iterador.next();
-					
-					if (mail.equalsIgnoreCase(actual.getMail())) {
-						existe = true;
-							aRetornar = actual;
-					}
-				
-			}
-		return aRetornar;
+				Map.Entry<String, Usuario> entrada = iterador.next();
+				actual = entrada.getValue();
+				if (actual.getMail().equals(mail)) {
+					aRetornar = actual;
+					existe = true;
+				}
+			}	
+			
+			return aRetornar;
+		}
+
+		public Iterator<Entry<String, Usuario>> iterador() {
+			return MapUsuarios.iterador();
+		}
+		
+		public boolean estaVacia() {
+			return MapUsuarios.estaVacio();
+		}
+		
+		public boolean contieneMail(String mail) {
+			return MapUsuarios.contieneKey(mail);
 		}
 
 }

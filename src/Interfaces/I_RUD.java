@@ -1,6 +1,5 @@
 package Interfaces;
 
-import excepciones.ExcExistencia;
 
 public interface I_RUD <T>{
 

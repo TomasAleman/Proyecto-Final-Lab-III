@@ -8,21 +8,21 @@ import elementos.Clasificacion;
 import elementos.Elemento;
 import elementos.Genero;
 import elementos.ListaElementos;
-import excepciones.ExcExistencia;
 import json.JsonUtiles;
 import peliculas.Pelicula;
 import series.Serie;
 import series.Temporada;
 import usuarios.Admin;
 import usuarios.Estandar;
-import usuarios.ListaAdmins;
-import usuarios.ListaEstandares;
 import usuarios.ListaUsuarios;
 import usuarios.Usuario;
 
 public class Main {
 
 	public static void main(String[] args) {
+		
+		
+		Nerflis app = new Nerflis();
 		
 		Pelicula pelicula1 = new Pelicula("Titanic", 5, Genero.ROMANCE, Clasificacion.MAS13, "Jack es un joven artista que gana un pasaje para viajar a América\n en el Titanic, el transatlántico más grande y seguro jamás construido.", 1997, "Kate Winslet, Leonardo DiCaprio, Billy Zane", "2:46");
 		Pelicula pelicula2 = new Pelicula("Rescatando al soldado Ryan", 4, Genero.ACCION, Clasificacion.MAS18, "Luego del Dia D, el Capitan John Miller y su grupo de soldados\n se adentran en territorio enemigo para rescatar a un paracaidista que ha perdido a tres hermanos en combate", 1998, "Tom Hanks, Tom Sizemore, Edward Burns", "2:50");
@@ -77,62 +77,22 @@ public class Main {
 			System.out.println("\n> El elemento buscado no existe");
 		}
 				
-		Estandar user1 = new Estandar("tomi@gmail.com", "39254");
-		Admin admin1 = new Admin("enzo@gmail.com","12345");
+		Estandar user1 = new Estandar("t", "1");
+		Admin admin1 = new Admin("enzo@gmail.com","123");
 		
-		// Test agregar usuarios
-		ListaUsuarios usuarios = new ListaUsuarios();
+		app.agregarUsuario(user1);
+		app.agregarUsuario(admin1);
 		
-		usuarios.agregar(user1);
-		usuarios.agregar(admin1);		
+		app.menuInicio();
 		
-		// Test mostrar usuarios
-		String listaUsuarios = usuarios.mostrarTodo();
-		if(!listaUsuarios.isEmpty())
-		{
-			System.out.println("\n"+listaUsuarios);
-		}
-		else
-		{
-			System.out.println("\n> No hay usuarios registrados.");
-		}
-		
-		// Test buscar usuarios 
-		Usuario usuarioBuscar = usuarios.buscar("tomi@gmail.com");
-		if(usuarioBuscar != null)
-		{
-			System.out.println("\n> Usuario encontrado: "+usuarioBuscar.toString());
-		}
-		else
-		{
-			System.out.println("\n> El usuario buscado no existe");
-		}
-		
-		// Test borrado de usuarios
-		/*
-		System.out.println("\nBorrando...");
-		usuarios.borrar(user1);
-		usuarios.borrar(admin1);
-		*/
-		
-		
-		//Comprobando que se hayan borrado exitosamente
-		/*
-		listaUsuarios = usuarios.mostrarTodo();
-		if(!listaUsuarios.isEmpty())
-		{
-			System.out.println("\n"+listaUsuarios);
-		}
-		else
-		{
-			System.out.println("\n> No hay usuarios estándar.");
-		}
-		*/
 		
 		JsonUtiles json = new JsonUtiles();
-		JSONObject datos = json.exportarToJSON(usuarios,elementos);
+		JSONObject datos = json.exportarToJSON(app.getUsuarios(),elementos);
 		json.grabarJSON(datos);
-		String contenidoJSON = json.leer();
+		String contenidoJSON = JsonUtiles.leer();
 		System.out.println(contenidoJSON);
 	}
+	
+	
+	
 }

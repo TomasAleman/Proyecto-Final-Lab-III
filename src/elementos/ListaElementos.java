@@ -3,7 +3,7 @@ package elementos;
 import java.util.Iterator;
 import Interfaces.I_RUD;
 import contenedoresGenericos.GenericHashSet;
-import excepciones.ExcExistencia;
+import excepciones.ExcepcionExistencia;
 import peliculas.Pelicula;
 import series.Serie;
 
@@ -30,7 +30,7 @@ public class ListaElementos implements I_RUD<Elemento> {
 	}
 
 	// Métodos
-	public Iterator iterador()
+	public Iterator<Elemento> iterador()
 	{
 		return hashSetElementos.iterador();
 	}
@@ -60,10 +60,10 @@ public class ListaElementos implements I_RUD<Elemento> {
 			}
 			else
 			{
-				throw new ExcExistencia("\n> El elemento "+o.getNombre()+" ya existe");
+				throw new ExcepcionExistencia("\n> El elemento "+o.getNombre()+" ya existe");
 			}
 		}
-		catch(ExcExistencia e)
+		catch(ExcepcionExistencia e)
 		{
 			System.out.println(e.getMessage()); // no se me ocurre a dónde mandar el sout, y si se maneja con throw te corta la ejecución al repetir un elemento
 		}

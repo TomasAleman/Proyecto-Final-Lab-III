@@ -27,8 +27,12 @@ public class GenericArrayList<T> {
 		return lista.isEmpty();
 	}
 	
-	public void eliminar(int indice) {
+	public void eliminarPorIndice(int indice) {
 		lista.remove(indice);
+	}
+	
+	public void eliminarPerfil(T elem) {
+		lista.remove(elem);
 	}
 	
 	public Iterator<T> iterador() {

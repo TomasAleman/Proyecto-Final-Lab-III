@@ -4,16 +4,18 @@ import java.util.Iterator;
 import java.util.Map;
 
 import contenedoresGenericos.GenericHashMap;
-import excepciones.ExcExistencia;
+import contenedoresGenericos.GenericHashSet;
+import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;
 
-public class ListaSeries implements I_RUD<Serie>{
-	private GenericHashMap<Integer, Serie>hashmapSeries;
+public class ListaSeries implements I_RUD<Serie> {
+	
+	private GenericHashSet<Serie>hashSetSeries;
 	
 	@Override
 	public String mostrarTodo() {
 		String contenido="";
-		Iterator<Map.Entry<Integer,Serie>> iterador = hashmapSeries.iterador();
+		Iterator<Serie> iterador = hashSetSeries.iterador();
 		while(iterador.hasNext()) {
 			contenido += iterador.next().toString();
 		}
@@ -24,16 +26,16 @@ public class ListaSeries implements I_RUD<Serie>{
 	public void agregar(Serie o){
 		try
 		{
-		if(!hashmapSeries.contieneValue(o))
+		if(!hashSetSeries.contiene(o))
 		{
-			hashmapSeries.agregar(o.getId(), o);
+			hashSetSeries.agregar(o);
 		}
 		else
 		{
-			throw new ExcExistencia("\n> La serie "+o.getNombre()+" ya existe");
+			throw new ExcepcionExistencia("\n> La serie "+o.getNombre()+" ya existe");
 		}	
 		}
-		catch(ExcExistencia e)
+		catch(ExcepcionExistencia e)
 		{
 			System.out.println(e.getMessage());
 		}
@@ -43,20 +45,18 @@ public class ListaSeries implements I_RUD<Serie>{
 
 	@Override
 	public void borrar(Serie o) {
-		hashmapSeries.eliminar(o.getId());
-		
+		hashSetSeries.eliminar(o);
 	}
 
 	@Override
 	public Serie buscar(String nombre) {
-	    	Iterator<Map.Entry<Integer, Serie>> iterador = hashmapSeries.iterador();
+	    	Iterator<Serie> iterador = hashSetSeries.iterador();
 			boolean existe = false;
 			Serie aRetornar = null;
 			Serie actual;
 			
 			while (iterador.hasNext() && existe == false) {
-				Map.Entry<Integer, Serie> entrada = iterador.next();
-				actual = entrada.getValue();
+				actual = iterador.next();
 				if (nombre.equalsIgnoreCase(actual.getNombre())) {
 					aRetornar = actual;
 					existe = true;
@@ -65,7 +65,6 @@ public class ListaSeries implements I_RUD<Serie>{
 			
 			return aRetornar;
 
-	   
 	}
 
 }
