@@ -1,15 +1,16 @@
 package series;
-import java.util.ArrayList;
 
-public class Temporada {
-	private String descripcionTemporada;
+import java.io.Serializable;
+
+public class Temporada implements Serializable{
 	private int numeroTemporada;
+	private String descripcionTemporada;
 	private int cantCapitulos;
 	
 	public Temporada(String descripcionTemporada,int numeroTemporada,int cantCapitulos)
 	{
 		this.descripcionTemporada=descripcionTemporada;
-		this.numeroTemporada=numeroTemporada;
+		this.numeroTemporada = numeroTemporada;
 		this.cantCapitulos=cantCapitulos;
 	}
 
@@ -39,7 +40,7 @@ public class Temporada {
 	
 	@Override
 	public String toString() {
-		return "\n\nTemporada: "+getNumeroTemporada()+"\nCapitulos: "+getCantCapitulos()+"\nDescripcion: "+getDescripcionTemporada();
+		return "\n\n [+] Temporada "+getNumeroTemporada()+" | "+getCantCapitulos()+" capítulos "+"\n * Descripcion: "+getDescripcionTemporada();
 	}
 
 }

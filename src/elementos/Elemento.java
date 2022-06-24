@@ -1,22 +1,22 @@
 	package elementos;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class Elemento {
+public abstract class Elemento implements Serializable{
 	private Integer id;
 	private static Integer contador=0;
 	private String nombre;
 	private float puntaje;
-	private Genero genero;
+	private String genero; // ACCION, SUSPENSO, TERROR, COMEDIA, ROMANCE;
 	private Clasificacion clasificacion;
 	private String descripcion;
 	private int anioDeEstreno;
 	private String elenco;
 
-	public Elemento(String nombre, float puntaje, Genero genero, Clasificacion clasificacion, String descripcion,
+	public Elemento(String nombre, float puntaje, String genero, Clasificacion clasificacion, String descripcion,
 			int anioDeEstreno, String elenco) {
 		this.id=contador;
 		contador++;
@@ -32,7 +32,7 @@ public abstract class Elemento {
 	public Elemento() {
 		this.nombre = null;
 		this.puntaje = 0;
-		this.genero = null;
+		this.genero = "";
 		this.clasificacion = null;
 		this.descripcion = null;
 		this.anioDeEstreno = 0;
@@ -44,7 +44,11 @@ public abstract class Elemento {
 	public Integer getId() {
 		return id;
 	}
-
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public static Integer getContador() {
 		return contador;
 	}
@@ -65,11 +69,11 @@ public abstract class Elemento {
 		this.puntaje = puntaje;
 	}
 
-	public Genero getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
-	public void setGenero(Genero genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 
@@ -107,8 +111,8 @@ public abstract class Elemento {
 
 	@Override
 	public String toString() {
-		return "\n\nNombre: " + nombre + "\nGenero: " + genero + "\nPuntaje: " + puntaje + "\nCalificacion: " + clasificacion +" Estrellas" + "\nDescripcion: " + descripcion + "\nAño de Estreno: "
-				+ anioDeEstreno + "\nElenco: " + elenco;
+		return "\n\n ------------------ #"+id+" | " + nombre.toUpperCase() + "\n * Género: " + genero + "\n * Puntaje: " + puntaje + "\n * Clasificación: " + clasificacion + "\n * Descripción: " + descripcion + "\n * Año de Estreno: "
+				+ anioDeEstreno + "\n * Elenco: " + elenco;
 	}
 
 	@Override
@@ -130,6 +134,7 @@ public abstract class Elemento {
 		return iguales;
 	}
 	
+
 	public abstract JSONObject devolverJsonObject() throws JSONException;
 
 }

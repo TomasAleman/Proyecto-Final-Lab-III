@@ -1,11 +1,11 @@
 package usuarios;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Estandar extends Usuario {
+public class Estandar extends Usuario implements Serializable{
 	private ListaPerfiles listaPerfiles;
 	
 	
@@ -36,10 +36,10 @@ public class Estandar extends Usuario {
 	@Override
 	public JSONObject devolverJsonObject() throws JSONException {
 		JSONObject usu = new JSONObject();
-		
-		usu.put("\nMail: ",getMail());
-		usu.put("\nClave: ",getClave());
-		usu.put("\nPerfiles: ",getListaPerfiles());
+		usu.put("Estado", isEstado());
+		usu.put("Mail",getMail());
+		usu.put("Clave",getClave());
+		usu.put("Perfiles",getListaPerfiles());
 		
 		return usu;
 	}

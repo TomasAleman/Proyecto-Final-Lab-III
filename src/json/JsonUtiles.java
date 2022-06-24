@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,7 @@ public class JsonUtiles {
 	    {
 	        String contenido = "";
 	        try{
-	            contenido = new String(Files.readAllBytes(Paths.get("nerflis.txt")));
+	            contenido = new String(Files.readAllBytes(Paths.get("nerflis.json")));
 	        }
 	        catch (IOException e)
 	        {
@@ -36,7 +35,7 @@ public class JsonUtiles {
 	public void grabarJSON(JSONObject obj)
     {
         try {
-            FileWriter file = new FileWriter("nerflis.txt");
+            FileWriter file = new FileWriter("nerflis.json");
             file.write(obj.toString());
             file.flush();
             file.close();

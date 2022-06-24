@@ -80,5 +80,9 @@ public class ListaPerfiles implements I_RUD<Perfil> {
 		}
 
 	}
+	
+	public boolean estaVacia() {
+		return listaPerfiles.estaVacio();
+	}
 
 }

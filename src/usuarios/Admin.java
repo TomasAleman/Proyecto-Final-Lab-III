@@ -1,68 +1,62 @@
 package usuarios;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import peliculas.ListaPeliculas;
 import series.ListaSeries;
 
-public class Admin extends Usuario{
+public class Admin extends Usuario implements Serializable{
 
-	private Integer pelisAgregadas;
-	private Integer seriesAgregadas;
-	private ListaPeliculas pelisModificadas;
-	private ListaSeries seriesModificadas;
+	private int pelisAgregadas;
+	private int seriesAgregadas;
+	private int pelisModificadas;
+	private int seriesModificadas;
 
 	// constructores
 	public Admin (String mail, String clave) {
-		super(mail,clave);
-		pelisAgregadas=0;
-		seriesAgregadas=0;
+		super(mail, clave);
+		pelisAgregadas = 0;
+		seriesAgregadas = 0;
 	}
 	
 	public Admin () {
 		super();
-		pelisAgregadas=0;
-		seriesAgregadas=0;
+		pelisAgregadas = 0;
+		seriesAgregadas = 0;
 	}
 
-	// métodos de interfaz
-	public void agregar()
-	{
-		
-	}
-
-
-
-	// setters y getters
-	public Integer getPelisAgregadas() {
+	// GETTERS Y SETTERS
+	public int getPelisAgregadas() {
 		return pelisAgregadas;
 	}
 
-	public void setPelisAgregadas(Integer pelisAgregadas) {
+	public void setPelisAgregadas(int pelisAgregadas) {
 		this.pelisAgregadas = pelisAgregadas;
 	}
 
-	public Integer getSeriesAgregadas() {
+	public int getSeriesAgregadas() {
 		return seriesAgregadas;
 	}
 
-	public void setSeriesAgregadas(Integer seriesAgregadas) {
+	public void setSeriesAgregadas(int seriesAgregadas) {
 		this.seriesAgregadas = seriesAgregadas;
 	}
 
-	public ListaPeliculas getPelisModificadas() {
+	public int getPelisModificadas() {
 		return pelisModificadas;
 	}
 
-	public void setPelisModificadas(ListaPeliculas pelisModificadas) {
+	public void setPelisModificadas(int pelisModificadas) {
 		this.pelisModificadas = pelisModificadas;
 	}
 
-	public ListaSeries getSeriesModificadas() {
+	public int getSeriesModificadas() {
 		return seriesModificadas;
 	}
 
-	public void setSeriesModificadas(ListaSeries seriesModificadas) {
+	public void setSeriesModificadas(int seriesModificadas) {
 		this.seriesModificadas = seriesModificadas;
 	}
 
@@ -77,12 +71,12 @@ public class Admin extends Usuario{
 	public JSONObject devolverJsonObject() throws JSONException {
 		JSONObject admin = new JSONObject();
 		
-		admin.put("\nMail: ",getMail());
-		admin.put("\nClave: ",getClave());
-		admin.put("\n# Películas agregadas: ", getPelisAgregadas());
-		admin.put("\n# Películas modificadas: ", getPelisModificadas());
-		admin.put("\n# Series agregadas: ", getSeriesAgregadas());
-		admin.put("\n# Series modificadas: ", getSeriesModificadas());
+		admin.put("Mail",getMail());
+		admin.put("Clave",getClave());
+		admin.put("# Películas agregadas", getPelisAgregadas());
+		admin.put("# Películas modificadas", getPelisModificadas());
+		admin.put("# Series agregadas", getSeriesAgregadas());
+		admin.put("# Series modificadas", getSeriesModificadas());
 		
 		return admin;
 	}

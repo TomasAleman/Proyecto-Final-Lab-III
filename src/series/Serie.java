@@ -1,5 +1,6 @@
 package series;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONException;
@@ -7,14 +8,14 @@ import org.json.JSONObject;
 
 import elementos.Clasificacion;
 import elementos.Elemento;
-import elementos.Genero;
 
-public class Serie extends Elemento {
+
+public class Serie extends Elemento implements Serializable{
 	private ArrayList<Temporada> listaTemporadas;
 	private int cantTemporadas;
 
 	//constructores
-	public Serie(String nombre, float puntaje, Genero genero, Clasificacion clasificacion, String descripcion,
+	public Serie(String nombre, float puntaje, String genero, Clasificacion clasificacion, String descripcion,
 			int anioDeEstreno, String elenco, int cantTemporadas, ArrayList<Temporada> listaTemporadas) {
 		super(nombre, puntaje, genero, clasificacion, descripcion, anioDeEstreno, elenco);
 		this.cantTemporadas = cantTemporadas;
@@ -60,22 +61,22 @@ public class Serie extends Elemento {
    @Override
 public String toString() {
 	
-	return super.toString()+ listarTemporadas();
+	return super.toString()+"\n * Cantidad de temporadas: "+ getCantTemporadas()+ listarTemporadas();
 }
    
    @Override
 	public JSONObject devolverJsonObject() throws JSONException {
 		JSONObject serie = new JSONObject();
 		
-		serie.put("\nID: ", getId());
-		serie.put("\nNombre: ", getNombre());
-		serie.put("\nDescripción: ", getDescripcion());
-		serie.put("\nGénero: ",getGenero());
-		serie.put("\nAño de estreno: ", getAnioDeEstreno());
-		serie.put("\nClasificación: ", getClasificacion());
-		serie.put("\nElenco: ", getElenco());
-		serie.put("\n# Temporadas: ", getCantTemporadas());
-		serie.put("\nDescripción Temporadas: ", getListaTemporadas());
+		serie.put("ID", getId());
+		serie.put("Nombre", getNombre());
+		serie.put("Descripción", getDescripcion());
+		serie.put("Género",getGenero());
+		serie.put("Año de estreno", getAnioDeEstreno());
+		serie.put("Clasificación", getClasificacion());
+		serie.put("Elenco", getElenco());
+		serie.put("# Temporadas", getCantTemporadas());
+		serie.put("Descripción Temporadas", getListaTemporadas());
 		
 		return serie;
 	}

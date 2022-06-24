@@ -1,9 +1,7 @@
 package series;
 
 import java.util.Iterator;
-import java.util.Map;
 
-import contenedoresGenericos.GenericHashMap;
 import contenedoresGenericos.GenericHashSet;
 import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;

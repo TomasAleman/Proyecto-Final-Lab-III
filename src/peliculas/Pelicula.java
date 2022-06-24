@@ -1,16 +1,17 @@
 package peliculas;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import elementos.Clasificacion;
 import elementos.Elemento;
-import elementos.Genero;
 
-public class Pelicula extends Elemento {
+public class Pelicula extends Elemento implements Serializable{
 	private String duracion;
 
-	public Pelicula(String nombre, float puntaje, Genero genero, Clasificacion clasificacion, String descripcion,
+	public Pelicula(String nombre, float puntaje, String genero, Clasificacion clasificacion, String descripcion,
 			int anioDeEstreno,String elenco, String duracion) {
 		super(nombre, puntaje, genero, clasificacion, descripcion, anioDeEstreno,elenco);
 		this.duracion = duracion;
@@ -30,19 +31,26 @@ public class Pelicula extends Elemento {
 	}
 	
 	@Override
+	public String toString() {
+		return super.toString()+"\n * Duracion: "+getDuracion()+" hs";
+	}
+	
+	@Override
 	public JSONObject devolverJsonObject() throws JSONException {
 		JSONObject peli = new JSONObject();
 		
-		peli.put("\nID: ", getId());
-		peli.put("\nNombre: ", getNombre());
-		peli.put("\nDescripción: ", getDescripcion());
-		peli.put("\nGénero: ",getGenero());
-		peli.put("\nAño de estreno: ", getAnioDeEstreno());
-		peli.put("\nClasificación: ", getClasificacion());
-		peli.put("\nElenco: ", getElenco());
-		peli.put("\nDuración: ", getDuracion());
+		peli.put("ID:", getId());
+		peli.put("Nombre", getNombre());
+		peli.put("Descripción", getDescripcion());
+		peli.put("Género",getGenero());
+		peli.put("Año de estreno", getAnioDeEstreno());
+		peli.put("Clasificación", getClasificacion());
+		peli.put("Elenco", getElenco());
+		peli.put("Duración", getDuracion());
 		
 		return peli;
 	}
+	
+
 
 }

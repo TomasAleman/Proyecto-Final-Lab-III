@@ -55,7 +55,7 @@ public class ListaUsuarios {
 				}
 				else
 				{
-					throw new ExcepcionExistencia("\n> El usuario "+user.getMail()+" ya existe");
+					throw new ExcepcionExistencia("\n> El email "+user.getMail()+" ya está registrado");
 				}
 			}
 			catch(ExcepcionExistencia e)

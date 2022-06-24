@@ -1,33 +1,44 @@
 package usuarios;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class Usuario {
-
+public abstract class Usuario implements Serializable{
+	private boolean estado = true; // true: activo, false: inactivo
 	private String mail;
 	private String clave;
-	private LocalDate fechaDeInicio;
+	private LocalDate fechaDeRegistro;
 
 
 	// constructores
 	public Usuario(String mail, String clave) {
+		isEstado();
 		this.mail = mail;
 		this.clave = clave;
-		fechaDeInicio= LocalDate.now();
+		fechaDeRegistro = LocalDate.now();
 	}
 	
 	// constructores
 		public Usuario() {
-			this.mail = "";
-			this.clave = "";
-			fechaDeInicio= null;
+			isEstado();
+			mail = "";
+			clave = "";
+			fechaDeRegistro = null;
 		}
 
 	// getters y setters
 		
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}	
+	
 	public String getMail() {
 		return mail;
 	}
@@ -35,8 +46,8 @@ public abstract class Usuario {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-
-	public String getClave() {
+	
+public String getClave() {
 		return clave;
 	}
 
@@ -44,17 +55,29 @@ public abstract class Usuario {
 		this.clave = clave;
 	}
 	
-	public LocalDate getFechaDeInicio() {
-		return fechaDeInicio;
+	public LocalDate getFechaDeRegistro() {
+		return fechaDeRegistro;
 	}
 
-	public void setFechaDeInicio(LocalDate fechaDeInicio) {
-		this.fechaDeInicio = fechaDeInicio;
+	public void setFechaDeRegistro(LocalDate fechaDeRegistro) {
+		this.fechaDeRegistro = fechaDeRegistro;
 	}
+
+	
+	
 	
 	@Override
 	public String toString() {
-		return "\nMail: "+ getMail() +"\nClave: "+getClave() +"\nFecha de Inicio: "+getFechaDeInicio();
+		String estado = "";
+		
+		if(isEstado() == true)
+		{
+			estado = "activo";
+		}
+		else {
+			estado = "dado de baja";
+		}
+		return "\n * Estado: " + estado + "\n * Mail: "+ getMail() +"\n * Clave: "+getClave() +"\n * Fecha de Registro: "+getFechaDeRegistro()+"\n";
 	}
 	
 

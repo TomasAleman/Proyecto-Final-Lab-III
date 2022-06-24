@@ -1,8 +1,10 @@
 package usuarios;
 
+import java.io.Serializable;
+
 import elementos.ListaElementos;
 
-public class Perfil {
+public class Perfil implements Serializable{
 	//private static int cdadPerfiles = 0;
 	//private int id;
 	private String nombre;
@@ -71,6 +73,6 @@ public class Perfil {
 		}
 		
 		// falta toString de miLista
-		return "Nombre: "+getNombre()+ "\nClasificacion: "+inf;
+		return "Nombre: "+getNombre()+ " | Clasificacion: "+inf;
 	}
 }
