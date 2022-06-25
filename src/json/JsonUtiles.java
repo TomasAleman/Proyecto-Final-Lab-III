@@ -46,6 +46,7 @@ public class JsonUtiles {
         }
     }
 
+	// Método que escribe los datos (Usuarios, Perfiles y Elementos) a un json
 	public JSONObject exportarToJSON(ListaUsuarios usu, ListaElementos ele)
 	{
 		JSONObject json = new JSONObject();

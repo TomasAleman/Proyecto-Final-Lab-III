@@ -7,6 +7,7 @@ public class Temporada implements Serializable{
 	private String descripcionTemporada;
 	private int cantCapitulos;
 	
+	// Constructores
 	public Temporada(String descripcionTemporada,int numeroTemporada,int cantCapitulos)
 	{
 		this.descripcionTemporada=descripcionTemporada;
@@ -14,6 +15,7 @@ public class Temporada implements Serializable{
 		this.cantCapitulos=cantCapitulos;
 	}
 
+	// Getters y Setters
 	public String getDescripcionTemporada() {
 		return descripcionTemporada;
 	}
@@ -38,6 +40,7 @@ public class Temporada implements Serializable{
 		this.cantCapitulos = cantCapitulos;
 	}
 	
+	// ---------------------------------------- OVERRIDES
 	@Override
 	public String toString() {
 		return "\n\n [+] Temporada "+getNumeroTemporada()+" | "+getCantCapitulos()+" capítulos "+"\n * Descripcion: "+getDescripcionTemporada();

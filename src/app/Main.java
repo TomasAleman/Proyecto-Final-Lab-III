@@ -50,10 +50,14 @@ public class Main {
 		app.agregarElemento(pelicula9);
 		app.agregarElemento(pelicula10);
 		
-		Admin admin1 = new Admin("e","2");
-		Estandar estand1= new Estandar ("t","1");
+		Admin admin1 = new Admin("admin@gmail.com","1234");
 		app.agregarUsuario(admin1);
-		app.agregarUsuario(estand1);
+
+		
+		/*app.leerArchivoUsuarios();
+		app.leerArchivoUsuariosEstandar();
+		app.leerElementos();
+		app.leerArchivoUsuariosAdmins();*/
 		
 		app.menuLaunch();
 		
@@ -62,6 +66,12 @@ public class Main {
 		json.grabarJSON(datos);
 		String contenidoJSON = JsonUtiles.leer();
 		System.out.println(contenidoJSON);
+		
+		/*app.guardarElementos();
+		app.guardarUsuarios();
+		app.guardarUsuariosEstandar();
+		app.guardarUsuariosAdmins();*/
+		
 		
 	}
 	

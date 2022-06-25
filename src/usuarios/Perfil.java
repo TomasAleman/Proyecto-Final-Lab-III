@@ -5,17 +5,11 @@ import java.io.Serializable;
 import elementos.ListaElementos;
 
 public class Perfil implements Serializable{
-	//private static int cdadPerfiles = 0;
-	//private int id;
 	private String nombre;
 	private boolean infantil; // true si es cuenta para menores
-	private ListaElementos miLista; // lista de P/S que tiene cada perfil
+	private ListaElementos miLista; 
 
 	// constructores
-	public Perfil() {
-
-	}
-
 	public Perfil(String nombre, boolean infantil) {
 		//setId();
 		this.nombre = nombre;
@@ -23,20 +17,7 @@ public class Perfil implements Serializable{
         miLista = new ListaElementos();
 	}
 
-	// getters y setters
-	/*public int getId() {
-		return cdadPerfiles;
-	}
-
-	public void setId() {
-		id = cdadPerfiles + 1;
-		cdadPerfiles++;
-	}
-	
-	public int getCdadPerfiles() {
-		return cdadPerfiles;
-	}*/
-	
+	// Getters y Setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -61,6 +42,7 @@ public class Perfil implements Serializable{
 		this.miLista = miLista;
 	}
 	
+	// ---------------------------------------- OVERRIDES
 	public String toString() {
 		String inf = "";
 		
@@ -72,7 +54,6 @@ public class Perfil implements Serializable{
 			inf = "Adulto";
 		}
 		
-		// falta toString de miLista
 		return "Nombre: "+getNombre()+ " | Clasificacion: "+inf;
 	}
 }

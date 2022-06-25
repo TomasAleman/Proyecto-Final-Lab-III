@@ -11,6 +11,7 @@ import elementos.Elemento;
 public class Pelicula extends Elemento implements Serializable{
 	private String duracion;
 
+	// Constructores
 	public Pelicula(String nombre, float puntaje, String genero, Clasificacion clasificacion, String descripcion,
 			int anioDeEstreno,String elenco, String duracion) {
 		super(nombre, puntaje, genero, clasificacion, descripcion, anioDeEstreno,elenco);
@@ -22,6 +23,7 @@ public class Pelicula extends Elemento implements Serializable{
 		duracion="";
 	}
 
+	// Getters y Setters
 	public String getDuracion() {
 		return duracion;
 	}
@@ -30,11 +32,13 @@ public class Pelicula extends Elemento implements Serializable{
 		this.duracion = duracion;
 	}
 	
+	// ---------------------------------------- OVERRIDES
 	@Override
 	public String toString() {
 		return super.toString()+"\n * Duracion: "+getDuracion()+" hs";
 	}
 	
+	// ---------------------------------------- MÉTODO JSON
 	@Override
 	public JSONObject devolverJsonObject() throws JSONException {
 		JSONObject peli = new JSONObject();

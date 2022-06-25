@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class Estandar extends Usuario implements Serializable{
 	private ListaPerfiles listaPerfiles;
 	
-	
+	// Constructores
 	public Estandar (String mail, String clave) {
 		super(mail, clave);
 		listaPerfiles = new ListaPerfiles();
@@ -19,6 +19,7 @@ public class Estandar extends Usuario implements Serializable{
 		listaPerfiles = new ListaPerfiles();	
 	}
 
+	// Getters y Setters
 	public ListaPerfiles getListaPerfiles() {
 		return listaPerfiles;
 	}
@@ -27,12 +28,14 @@ public class Estandar extends Usuario implements Serializable{
 		this.listaPerfiles = listaPerfiles;
 	}
 	
+	// ---------------------------------------- OVERRIDES
 	@Override
 	public String toString() {
 		
 		return "\n- Estándar -"+super.toString();
 	}
 	
+	// ---------------------------------------- MÉTODO JSON
 	@Override
 	public JSONObject devolverJsonObject() throws JSONException {
 		JSONObject usu = new JSONObject();
@@ -43,6 +46,4 @@ public class Estandar extends Usuario implements Serializable{
 		
 		return usu;
 	}
-	
-	
 }

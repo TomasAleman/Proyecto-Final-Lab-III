@@ -1,5 +1,6 @@
 package excepciones;
 
+// Excepción que se lanza cuando no hay elementos en una lista
 public class ExcepcionExistencia extends Exception{
 	private String msg;
 

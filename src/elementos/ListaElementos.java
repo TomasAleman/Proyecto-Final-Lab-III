@@ -1,5 +1,6 @@
 package elementos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,8 +11,7 @@ import excepciones.ExcepcionExistencia;
 import peliculas.Pelicula;
 import series.Serie;
 
-public class ListaElementos implements I_RUD<Elemento> {
-
+public class ListaElementos implements I_RUD<Elemento>, Serializable {
 	private GenericHashSet<Elemento> hashSetElementos;
 
 	// Constructores
@@ -23,7 +23,7 @@ public class ListaElementos implements I_RUD<Elemento> {
 		this.hashSetElementos = hashSetElementos;
 	}
 
-	// getters y setters
+	// Getters y Setters
 	public GenericHashSet<Elemento> getHashSetElementos() {
 		return hashSetElementos;
 	}
@@ -32,7 +32,9 @@ public class ListaElementos implements I_RUD<Elemento> {
 		this.hashSetElementos = hashSetElementos;
 	}
 
-	// Métodos
+	// ---------------------------------------- MÉTODOS de LISTAELEMENTOS
+	
+	// Iterar
 	public Iterator<Elemento> iterador() {
 		return hashSetElementos.iterador();
 	}
@@ -42,6 +44,7 @@ public class ListaElementos implements I_RUD<Elemento> {
 		return existe;
 	}
 
+	// Mostrar todos los Elementos
 	public String mostrarTodo() {
 		String contenido = "";
 		Iterator<Elemento> iterador = hashSetElementos.iterador();
@@ -50,7 +53,8 @@ public class ListaElementos implements I_RUD<Elemento> {
 		}
 		return contenido;
 	}
-	
+
+	// Mostrar sólo Instancias de Película
 	public String mostrarPeliculas() {
 		String contenido = "";
 		Iterator<Elemento> iterador = hashSetElementos.iterador();
@@ -63,7 +67,8 @@ public class ListaElementos implements I_RUD<Elemento> {
 		}
 		return contenido;
 	}
-
+	
+	// Mostrar sólo Instancias de Serie
 	public String mostrarSeries() {
 		String contenido = "";
 		Iterator<Elemento> iterador = hashSetElementos.iterador();
@@ -77,6 +82,7 @@ public class ListaElementos implements I_RUD<Elemento> {
 		return contenido;
 	}
 	
+	// Filtrar Elementos por Género ingresado
 	public String mostrarPorGenero(String genero)
 	{
 		String contenido = "";
@@ -88,12 +94,10 @@ public class ListaElementos implements I_RUD<Elemento> {
 				contenido += iterador.next().toString();
 			}
 		}
-		
 		return contenido;
-		
 	}
 	
-	// ORDEN ALFABETICO --------------------------------------------------------------------------------
+	// Ordenar Elementos por Orden Alfabético Ascendiente
 	public String mostrarPorOrdenAlfabetico()
 	{
 		String contenido = "";
@@ -112,8 +116,8 @@ public class ListaElementos implements I_RUD<Elemento> {
 			contenido = contenido + elementos.get(i);
 		}
 		return contenido;
-		
 	}
+	
 	public void insertar(ArrayList<Elemento> elementos,int ultPosVal, Elemento aux)
 	{
 		int i = ultPosVal;
@@ -127,6 +131,7 @@ public class ListaElementos implements I_RUD<Elemento> {
 		elementos.remove(i+1);
 		elementos.add(i+1, aux);
 	}
+	
 	public void ordenarInsercion(ArrayList<Elemento> elementos,int validos)
 	{
 		int i =0 ; 
@@ -136,7 +141,8 @@ public class ListaElementos implements I_RUD<Elemento> {
 			i++;
 		}
 	}
-	///  ORDENAR POR FECHA -----------------------------------------------------------------------------------------------------
+	
+	// Ordenar Elementos por Año de Estreno Descendiente
 	public String mostrarPorFecha()
 	{
 		String contenido = "";
@@ -178,7 +184,8 @@ public class ListaElementos implements I_RUD<Elemento> {
 			i++;
 		}
 	}
-	///  ORDENAR POR PUNTAJE -----------------------------------------------------------------------------------------------------
+	
+	// Ordenar Elementos por Puntaje Descendiente
 	public String mostrarPorPuntaje()
 	{
 		String contenido = "";
@@ -220,27 +227,20 @@ public class ListaElementos implements I_RUD<Elemento> {
 			i++;
 		}
 	}
-
-	@Override
-	public void agregar(Elemento o) {
-		try {
-			if (hashSetElementos.contiene(o) == false) {
-				hashSetElementos.agregar(o);
-			} else {
-				throw new ExcepcionExistencia("\n> El elemento " + o.getNombre() + " ya existe");
-			}
-		} catch (ExcepcionExistencia e) {
-			System.out.println(e.getMessage()); 
+	
+	// Obtener tamaño de la lista
+		public int tamanio() {
+			return hashSetElementos.tamanio();
 		}
 
-	}
-
+	// Borrar un Elemento de la lista
 	@Override
 	public void borrar(Elemento o) {
 
 		hashSetElementos.eliminar(o);
 	}
 
+	// Buscar un Elemento en la lista
 	@Override
 	public Elemento buscar(String nombre) {
 		Iterator<Elemento> iterador = hashSetElementos.iterador();
@@ -267,8 +267,18 @@ public class ListaElementos implements I_RUD<Elemento> {
 		return aRetornar;
 	}
 	
-	public int validos() {
-		return hashSetElementos.tamanio();
-	}
+	// Agregar un Elemento a la lista
+		@Override
+		public void agregar(Elemento o) {
+			try {
+				if (hashSetElementos.contiene(o) == false) {
+					hashSetElementos.agregar(o);
+				} else {
+					throw new ExcepcionExistencia("\n> El elemento " + o.getNombre() + " ya existe");
+				}
+			} catch (ExcepcionExistencia e) {
+				System.out.println(e.getMessage()); 
+			}
 
+		}
 }

@@ -1,6 +1,6 @@
 package Interfaces;
 
-
+// Interfaz de agregado, borrado, búsqueda e impresión de objetos a las listas
 public interface I_RUD <T>{
 
 	public void agregar(T o);

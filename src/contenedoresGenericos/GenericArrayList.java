@@ -1,9 +1,10 @@
 package contenedoresGenericos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class GenericArrayList<T> {
+public class GenericArrayList<T> implements Serializable {
 	
 	public ArrayList<T> lista;
 

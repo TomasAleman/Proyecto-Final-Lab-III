@@ -1,9 +1,10 @@
 package contenedoresGenericos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class GenericHashSet<T> {
+public class GenericHashSet<T> implements Serializable{
 
 	HashSet<T> hashSet;
 

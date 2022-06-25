@@ -16,6 +16,7 @@ public abstract class Elemento implements Serializable{
 	private int anioDeEstreno;
 	private String elenco;
 
+	// Constructores
 	public Elemento(String nombre, float puntaje, String genero, Clasificacion clasificacion, String descripcion,
 			int anioDeEstreno, String elenco) {
 		this.id=contador;
@@ -38,9 +39,8 @@ public abstract class Elemento implements Serializable{
 		this.anioDeEstreno = 0;
 		this.elenco = null;
 	}
-	
-	
 
+	// Getters y Setters
 	public Integer getId() {
 		return id;
 	}
@@ -109,6 +109,7 @@ public abstract class Elemento implements Serializable{
 		this.elenco = elenco;
 	}
 
+	// ---------------------------------------- OVERRIDES
 	@Override
 	public String toString() {
 		return "\n\n ------------------ #"+id+" | " + nombre.toUpperCase() + "\n * Género: " + genero + "\n * Puntaje: " + puntaje + "\n * Clasificación: " + clasificacion + "\n * Descripción: " + descripcion + "\n * Año de Estreno: "
@@ -134,7 +135,7 @@ public abstract class Elemento implements Serializable{
 		return iguales;
 	}
 	
-
+	// ---------------------------------------- FIRMA DEL MÉTODO JSON
 	public abstract JSONObject devolverJsonObject() throws JSONException;
 
 }

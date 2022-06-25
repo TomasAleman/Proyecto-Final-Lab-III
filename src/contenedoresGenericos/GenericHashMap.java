@@ -1,10 +1,11 @@
 package contenedoresGenericos;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-public class GenericHashMap<K,V> {
+public class GenericHashMap<K,V>implements Serializable {
 	
 	private HashMap<K,V> hashMap;
 	

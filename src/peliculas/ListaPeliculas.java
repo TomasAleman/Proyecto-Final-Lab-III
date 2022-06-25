@@ -1,19 +1,24 @@
 package peliculas;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import contenedoresGenericos.GenericHashSet;
 import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;
 
-public class ListaPeliculas implements I_RUD<Pelicula>{
+public class ListaPeliculas implements I_RUD<Pelicula>, Serializable{
 	
 	private GenericHashSet <Pelicula> hashSetPeliculas;
 	
+	// Constructor
 	public ListaPeliculas() {
 		hashSetPeliculas = new GenericHashSet<>();
 	}
 	
+	// ---------------------------------------- MÉTODOS de LISTAELEMENTOS
+	
+	// Mostrar todas las Peliculas de una lista
 	@Override
     public String mostrarTodo() {
 		String contenido="";
@@ -23,7 +28,34 @@ public class ListaPeliculas implements I_RUD<Pelicula>{
 		}
 		return contenido;  
 	}
+	
+	// Borrar una Pelicula de la lista
+	@Override
+	public void borrar(Pelicula o) 
+	{
+		hashSetPeliculas.eliminar(o);
+	}
+	
+	// Buscar una Pelicula en la lista
+	@Override
+	public Pelicula buscar(String nombre) {
+	  Iterator<Pelicula> iterador = hashSetPeliculas.iterador();
+			boolean existe = false;
+			Pelicula aRetornar = null;
+			Pelicula actual;
+			
+			while (iterador.hasNext() && existe == false) {
+				actual = iterador.next();
+				if (nombre.equalsIgnoreCase(actual.getNombre())) {
+					aRetornar = actual;
+					existe = true;
+				}
+			}	
+			
+			return aRetornar;
+	}
 
+	// Agregar una Pelicula a la lista
 	@Override
 	public void agregar(Pelicula o){
 		try
@@ -43,29 +75,4 @@ public class ListaPeliculas implements I_RUD<Pelicula>{
 		}
 		
 	}
-
-	@Override
-	public void borrar(Pelicula o) 
-	{
-		hashSetPeliculas.eliminar(o);
-	}
-
-	@Override
-	public Pelicula buscar(String nombre) {
-	  Iterator<Pelicula> iterador = hashSetPeliculas.iterador();
-			boolean existe = false;
-			Pelicula aRetornar = null;
-			Pelicula actual;
-			
-			while (iterador.hasNext() && existe == false) {
-				actual = iterador.next();
-				if (nombre.equalsIgnoreCase(actual.getNombre())) {
-					aRetornar = actual;
-					existe = true;
-				}
-			}	
-			
-			return aRetornar;
-	}
-
 }

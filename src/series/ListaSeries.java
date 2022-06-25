@@ -1,15 +1,24 @@
 package series;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import contenedoresGenericos.GenericHashSet;
 import excepciones.ExcepcionExistencia;
 import Interfaces.I_RUD;
 
-public class ListaSeries implements I_RUD<Serie> {
+public class ListaSeries implements I_RUD<Serie>, Serializable {
 	
 	private GenericHashSet<Serie>hashSetSeries;
 	
+	// Constructor
+	public ListaSeries() {
+		hashSetSeries = new GenericHashSet<>();
+	}
+	
+	// ---------------------------------------- MÉTODOS de LISTASERIES
+	
+	// Mostrar todas las Series de una lista
 	@Override
 	public String mostrarTodo() {
 		String contenido="";
@@ -20,32 +29,13 @@ public class ListaSeries implements I_RUD<Serie> {
 		return contenido; 
 	}
 
-	@Override
-	public void agregar(Serie o){
-		try
-		{
-		if(!hashSetSeries.contiene(o))
-		{
-			hashSetSeries.agregar(o);
-		}
-		else
-		{
-			throw new ExcepcionExistencia("\n> La serie "+o.getNombre()+" ya existe");
-		}	
-		}
-		catch(ExcepcionExistencia e)
-		{
-			System.out.println(e.getMessage());
-		}
-		
-		
-	}
-
+	// Borrar una Serie de la lista
 	@Override
 	public void borrar(Serie o) {
 		hashSetSeries.eliminar(o);
 	}
-
+	
+	// Buscar una Pelicula en la lista
 	@Override
 	public Serie buscar(String nombre) {
 	    	Iterator<Serie> iterador = hashSetSeries.iterador();
@@ -65,4 +55,23 @@ public class ListaSeries implements I_RUD<Serie> {
 
 	}
 
+	// Agregar una Pelicula a la lista
+		@Override
+		public void agregar(Serie o){
+			try
+			{
+			if(!hashSetSeries.contiene(o))
+			{
+				hashSetSeries.agregar(o);
+			}
+			else
+			{
+				throw new ExcepcionExistencia("\n> La serie "+o.getNombre()+" ya existe");
+			}	
+			}
+			catch(ExcepcionExistencia e)
+			{
+				System.out.println(e.getMessage());
+			}
+		}
 }
