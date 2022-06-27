@@ -2,6 +2,9 @@ package series;
 
 import java.io.Serializable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Temporada implements Serializable{
 	private int numeroTemporada;
 	private String descripcionTemporada;
@@ -45,5 +48,25 @@ public class Temporada implements Serializable{
 	public String toString() {
 		return "\n\n [+] Temporada "+getNumeroTemporada()+" | "+getCantCapitulos()+" capítulos "+"\n * Descripcion: "+getDescripcionTemporada();
 	}
+	
+	// ---------------------------------------- MÉTODO JSON
+	public JSONObject temporadaToJSON()
+	{
+		JSONObject temporada = new JSONObject();
+		
+		try
+		{
+			temporada.put("Temporada #",getNumeroTemporada());
+		temporada.put("Descripción", getDescripcionTemporada());
+		temporada.put("Cantidad de capítulos",getCantCapitulos());
+		}
+		catch(JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return temporada;
+	}
+	
+	
 
 }

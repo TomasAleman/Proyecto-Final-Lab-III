@@ -5,10 +5,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import Interfaces.I_RUD;
 import contenedoresGenericos.GenericHashMap;
 import excepciones.ExcepcionExistencia;
 
-public class ListaUsuarios implements Serializable {
+public class ListaUsuarios implements I_RUD<Usuario>, Serializable {
 	private GenericHashMap<String, Usuario> MapUsuarios;
 
 	// Constructores
@@ -40,18 +41,34 @@ public class ListaUsuarios implements Serializable {
 		}
 		return contenido;
 	}
+	public boolean existeMail(String mail)
+	{
+		Iterator<Map.Entry<String, Usuario>> iterador = MapUsuarios.iterador();
+		boolean esIgual =false;
+		Usuario actual = null;
+		while (iterador.hasNext() && esIgual==false)
+		{
+			Map.Entry<String, Usuario> entrada = iterador.next();
+			actual = entrada.getValue();
+			if(actual.getMail().equals(mail)) {
+				esIgual =true;
+			}
+		}
+		return esIgual;
+	}
 
 	// Comprobar existencia de un Usuario en la lista
-	public boolean contieneMail(String mail) {
+	public boolean contieneKey(String mail) {
 		return MapUsuarios.contieneKey(mail);
 	}
 	
-	// Iterar 
+	// Iterador 
 	public Iterator<Entry<String, Usuario>> iterador() {
 		return MapUsuarios.iterador();
 	}
 
 	// Ver si la lista de Usuarios está vacía
+	@Override
 	public boolean estaVacia() {
 		return MapUsuarios.estaVacio();
 	}
@@ -62,6 +79,7 @@ public class ListaUsuarios implements Serializable {
 	}
 
 	// Buscar un Usuario en la lista
+	@Override
 	public Usuario buscar(String mail) {
 		Iterator<Map.Entry<String, Usuario>> iterador = MapUsuarios.iterador();
 		boolean existe = false;
@@ -80,6 +98,7 @@ public class ListaUsuarios implements Serializable {
 	}
 	
 	// Agregar un Usuario a la lista
+	@Override
 	public void agregar(Usuario user) {
 		try {
 			if (MapUsuarios.contieneKey(user.getMail()) == false) {
@@ -92,4 +111,29 @@ public class ListaUsuarios implements Serializable {
 		}
 
 	}
+
+	@Override
+	public void borrar(Usuario o) {
+		MapUsuarios.eliminarUsuario(o);
+	}
+	
+	/*
+	public JSONArray usuariosToJSON()
+	{
+		JSONArray arrayUsuarios = new JSONArray();
+		
+		Iterator<Map.Entry<String,Usuario>> iterador = MapUsuarios.iterador();
+		
+		while(iterador.hasNext())
+		{
+			Map.Entry<String,Usuario> entry = iterador.next();
+			Usuario actual = entry.getValue();
+			arrayUsuarios.put(actual);
+		}
+		
+		return arrayUsuarios;
+	}
+	*/
+
+
 }

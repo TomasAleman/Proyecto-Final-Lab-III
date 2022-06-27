@@ -75,6 +75,6 @@ public abstract class Usuario implements Serializable {
 	}
 
 	// ---------------------------------------- FIRMA del MÉTODO JSON
-	public abstract JSONObject devolverJsonObject() throws JSONException;
+	public abstract JSONObject usuarioToJSON() throws JSONException;
 
 }

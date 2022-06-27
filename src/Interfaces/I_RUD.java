@@ -11,5 +11,7 @@ public interface I_RUD <T>{
 	
 	public String mostrarTodo();
 	
+	public boolean estaVacia();
+	
 	
 }

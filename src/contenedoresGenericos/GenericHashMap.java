@@ -32,6 +32,9 @@ public class GenericHashMap<K,V>implements Serializable {
 	public void eliminar(K key) {
 		hashMap.remove(key);
 	}
+	public void eliminarUsuario(V value) {
+		hashMap.remove(value);
+	}
 	
 	public boolean contieneKey (K key) {
 		return hashMap.containsKey(key);
@@ -44,5 +47,7 @@ public class GenericHashMap<K,V>implements Serializable {
 	public Iterator<Entry<K, V>> iterador () {
 		return hashMap.entrySet().iterator();
 	}
+	
+	
 
 }

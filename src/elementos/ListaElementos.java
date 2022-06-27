@@ -83,30 +83,47 @@ public class ListaElementos implements I_RUD<Elemento>, Serializable {
 	}
 	
 	// Filtrar Elementos por Género ingresado
-	public String mostrarPorGenero(String genero)
+	public String mostrarPorGenero(String genero, boolean infantil)
 	{
 		String contenido = "";
 		Iterator<Elemento>iterador = hashSetElementos.iterador();
-		
+		Elemento actual =null;
 		while (iterador.hasNext()) {
-			if(iterador.next().getGenero().equalsIgnoreCase(genero))
+			actual = iterador.next();
+			if(infantil) {
+				if(actual.getGenero().equalsIgnoreCase(genero) && actual.getClasificacion().compareTo(Clasificacion.MAS7) ==0 )
+				{
+					contenido += actual.toString();
+				}
+			}else if (actual.getGenero().equalsIgnoreCase(genero))
 			{
-				contenido += iterador.next().toString();
+				contenido += actual.toString();
 			}
+		}
+		if(contenido.equals("")) {
+			contenido = "No encontramos peliculas de "+genero+" aptas para ti";
 		}
 		return contenido;
 	}
 	
 	// Ordenar Elementos por Orden Alfabético Ascendiente
-	public String mostrarPorOrdenAlfabetico()
+	public String mostrarPorOrdenAlfabetico(boolean infantil)
 	{
 		String contenido = "";
 		ArrayList<Elemento> elementos = new ArrayList<>();
 		Iterator<Elemento>iterador = hashSetElementos.iterador();
-		
+		Elemento actual =null;
 		while(iterador.hasNext())
 		{
-			elementos.add(iterador.next());
+			actual = iterador.next();
+			if(infantil) {
+				if(actual.getClasificacion().compareTo(Clasificacion.MAS7)== 0) {
+					elementos.add(actual);
+				}
+			}else {
+				elementos.add(actual);
+			}
+			
 		}
 		
 		ordenarInsercion(elementos, elementos.size());
@@ -143,15 +160,22 @@ public class ListaElementos implements I_RUD<Elemento>, Serializable {
 	}
 	
 	// Ordenar Elementos por Año de Estreno Descendiente
-	public String mostrarPorFecha()
+	public String mostrarPorFecha(boolean infantil)
 	{
 		String contenido = "";
 		ArrayList<Elemento> elementos = new ArrayList<>();
 		Iterator<Elemento>iterador = hashSetElementos.iterador();
-		
+		Elemento actual = null;
 		while(iterador.hasNext())
 		{
-			elementos.add(iterador.next());
+			actual = iterador.next();
+			if(infantil) {
+				if(actual.getClasificacion().compareTo(Clasificacion.MAS7)== 0) {
+					elementos.add(actual);
+				}
+			}else {
+				elementos.add(actual);
+			}
 		}
 		ordenarInsercionFecha(elementos, elementos.size());
 		for(int i = 0;i<elementos.size();i++)
@@ -186,15 +210,22 @@ public class ListaElementos implements I_RUD<Elemento>, Serializable {
 	}
 	
 	// Ordenar Elementos por Puntaje Descendiente
-	public String mostrarPorPuntaje()
+	public String mostrarPorPuntaje(boolean infantil)
 	{
 		String contenido = "";
 		ArrayList<Elemento> elementos = new ArrayList<>();
 		Iterator<Elemento>iterador = hashSetElementos.iterador();
-		
+		Elemento actual =null;
 		while(iterador.hasNext())
 		{
-			elementos.add(iterador.next());
+			actual = iterador.next();
+			if(infantil) {
+				if(actual.getClasificacion().compareTo(Clasificacion.MAS7)== 0) {
+					elementos.add(actual);
+				}
+			}else {
+				elementos.add(actual);
+			}
 		}
 		ordenarInsercionPuntaje(elementos, elementos.size());
 		for(int i = 0;i<elementos.size();i++)
@@ -280,5 +311,10 @@ public class ListaElementos implements I_RUD<Elemento>, Serializable {
 				System.out.println(e.getMessage()); 
 			}
 
+		}
+
+		@Override
+		public boolean estaVacia() {
+			return hashSetElementos.estaVacio();
 		}
 }

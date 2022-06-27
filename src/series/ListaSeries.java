@@ -74,4 +74,12 @@ public class ListaSeries implements I_RUD<Serie>, Serializable {
 				System.out.println(e.getMessage());
 			}
 		}
+
+		@Override
+		public boolean estaVacia() {
+			return hashSetSeries.estaVacio();
+		}  
+		
+		
+		
 }

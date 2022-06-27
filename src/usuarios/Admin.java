@@ -73,7 +73,7 @@ public class Admin extends Usuario implements Serializable{
 	
 	// ---------------------------------------- MÉTODO JSON
 	@Override
-	public JSONObject devolverJsonObject() throws JSONException {
+	public JSONObject usuarioToJSON() throws JSONException {
 		JSONObject admin = new JSONObject();
 		
 		admin.put("Mail",getMail());

@@ -5,6 +5,8 @@ import excepciones.ExcepcionCantidadPerfiles;
 
 import java.io.Serializable;
 
+import org.json.JSONArray;
+
 import Interfaces.I_RUD;
 
 public class ListaPerfiles implements I_RUD<Perfil>, Serializable{
@@ -59,6 +61,7 @@ public class ListaPerfiles implements I_RUD<Perfil>, Serializable{
 	}
 	
 	// Ver si la lista de Perfiles está vacía
+	@Override
 	public boolean estaVacia() {
 		return listaPerfiles.estaVacio();
 	}
@@ -100,5 +103,18 @@ public class ListaPerfiles implements I_RUD<Perfil>, Serializable{
 			System.out.println(e.getMessage());
 		}
 
+	}
+	
+	
+	public JSONArray perfilesToJSON()
+	{
+		JSONArray arrayPerfiles = new JSONArray();
+		
+		for (int i=0; i<listaPerfiles.tamanio(); i++)
+		{
+			arrayPerfiles.put(listaPerfiles.devolver(i).perfilToJSON());
+		}
+		
+		return arrayPerfiles;
 	}
 }

@@ -37,12 +37,12 @@ public class Estandar extends Usuario implements Serializable{
 	
 	// ---------------------------------------- MÉTODO JSON
 	@Override
-	public JSONObject devolverJsonObject() throws JSONException {
+	public JSONObject usuarioToJSON() throws JSONException {
 		JSONObject usu = new JSONObject();
 		usu.put("Estado", isEstado());
 		usu.put("Mail",getMail());
 		usu.put("Clave",getClave());
-		usu.put("Perfiles",getListaPerfiles());
+		usu.put("Perfiles",getListaPerfiles().perfilesToJSON());
 		
 		return usu;
 	}

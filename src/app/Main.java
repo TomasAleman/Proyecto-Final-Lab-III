@@ -21,7 +21,7 @@ public class Main {
 		
 		Nerflis app = new Nerflis();
 		
-		Pelicula pelicula1 = new Pelicula("Titanic", 5, "Romance", Clasificacion.MAS13, "Jack es un joven artista que gana un pasaje para viajar a América\n en el Titanic, el transatlántico más grande y seguro jamás construido.", 1997, "Kate Winslet, Leonardo DiCaprio, Billy Zane", "2:46");
+		/*Pelicula pelicula1 = new Pelicula("Titanic", 5, "Romance", Clasificacion.MAS13, "Jack es un joven artista que gana un pasaje para viajar a América\n en el Titanic, el transatlántico más grande y seguro jamás construido.", 1997, "Kate Winslet, Leonardo DiCaprio, Billy Zane", "2:46");
 		Pelicula pelicula2 = new Pelicula("Rescatando al soldado Ryan", 4, "Accion", Clasificacion.MAS18, "Luego del Dia D, el Capitan John Miller y su grupo de soldados\n se adentran en territorio enemigo para rescatar a un paracaidista que ha perdido a tres hermanos en combate", 1998, "Tom Hanks, Tom Sizemore, Edward Burns", "2:50");
 		Pelicula pelicula3 = new Pelicula("Eterno resplandor de una mente sin recuerdos", 5, "Romance", Clasificacion.MAS13, "Parecían la pareja ideal, su primer encuentro fue mágico, pero con el paso del tiempo ella deseó nunca haberlo conocido. Su anhelo se hace realidad gracias a un polémico y radical invento. Sin embargo descubrirán que el destino no se puede controlar.", 2004, "Kate Winslet, Jim Carrey", "1:47");
 		Pelicula pelicula4 = new Pelicula("John Wick 3: Parabellum", 4, "Accion", Clasificacion.MAS18, "John Wick regresa de nuevo pero con una recompensa sobre su cabeza que persigue unos mercenarios. Tras asesinar a uno de los miembros de su gremio, Wick es expulsado y se convierte en el foco de atención de todos los sicarios de la organización.", 2019, "Keanu Reeves, Halle Berry, Laurence Fishburne", "2:10");
@@ -51,26 +51,28 @@ public class Main {
 		app.agregarElemento(pelicula10);
 		
 		Admin admin1 = new Admin("admin@gmail.com","1234");
-		app.agregarUsuario(admin1);
+		app.agregarUsuario(admin1);*/
+		
+		
 
 		
-		/*app.leerArchivoUsuarios();
+		app.leerArchivoUsuarios();
 		app.leerArchivoUsuariosEstandar();
 		app.leerElementos();
-		app.leerArchivoUsuariosAdmins();*/
+		app.leerArchivoUsuariosAdmins();
 		
 		app.menuLaunch();
 		
 		JsonUtiles json = new JsonUtiles();
 		JSONObject datos = json.exportarToJSON(app.getUsuarios(),app.getElementos());
 		json.grabarJSON(datos);
-		String contenidoJSON = JsonUtiles.leer();
-		System.out.println(contenidoJSON);
+		/*String contenidoJSON = JsonUtiles.leer();
+		System.out.println(contenidoJSON);*/
 		
-		/*app.guardarElementos();
+		app.guardarElementos();
 		app.guardarUsuarios();
 		app.guardarUsuariosEstandar();
-		app.guardarUsuariosAdmins();*/
+		app.guardarUsuariosAdmins();
 		
 		
 	}

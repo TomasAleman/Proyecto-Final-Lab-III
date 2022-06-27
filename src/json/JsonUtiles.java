@@ -62,13 +62,13 @@ public class JsonUtiles {
 			{
 				Map.Entry<String, Usuario> entryActual = entriesUsuarios.next();
 				Usuario usuActual = (Usuario) entryActual.getValue();
-				jsonArrayUsuarios.put(usuActual.devolverJsonObject());
+				jsonArrayUsuarios.put(usuActual.usuarioToJSON());
 			}
 			
 			while(entriesElementos.hasNext())
 			{
 				Elemento eleActual = (Elemento)entriesElementos.next();
-				jsonArrayElementos.put(eleActual.devolverJsonObject());
+				jsonArrayElementos.put(eleActual.elementoToJSON());
 			}
 			
 			json.put("Usuarios",jsonArrayUsuarios);

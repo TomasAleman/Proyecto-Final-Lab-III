@@ -40,10 +40,10 @@ public class Pelicula extends Elemento implements Serializable{
 	
 	// ---------------------------------------- MÉTODO JSON
 	@Override
-	public JSONObject devolverJsonObject() throws JSONException {
+	public JSONObject elementoToJSON() throws JSONException {
 		JSONObject peli = new JSONObject();
 		
-		peli.put("ID:", getId());
+		peli.put("ID", getId());
 		peli.put("Nombre", getNombre());
 		peli.put("Descripción", getDescripcion());
 		peli.put("Género",getGenero());

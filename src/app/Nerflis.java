@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import elementos.Clasificacion;
@@ -103,7 +104,7 @@ public class Nerflis {
 
 		if (!usuarios.estaVacia()) // comprueba que la lista de usuarios no esté vacía
 		{
-			if (usuarios.contieneMail(mail)) // comprueba que el mail esté registrado
+			if (usuarios.existeMail(mail)) // comprueba que el mail esté registrado
 			{
 				if (usuarios.buscar(mail).getClave().equals(clave)) // comprueba que la clave pertenezca a ese mail
 				{
@@ -118,7 +119,7 @@ public class Nerflis {
 	public boolean validarRegistro(String email) {
 		boolean retorno = false;
 		if (!usuarios.estaVacia()) {
-			if (usuarios.contieneMail(email)) {
+			if (usuarios.existeMail(email)) {
 				retorno = true;
 			}
 
@@ -201,7 +202,7 @@ public class Nerflis {
 		String perfiles = "";
 
 		for (int i = 0; i < user.getListaPerfiles().cantidadPerfiles(); i++) {
-			perfiles += " (" + (i + 1) + ") " + user.getListaPerfiles().mostrarPorIndice(i);
+			perfiles += "\n (" + (i + 1) + ") " + user.getListaPerfiles().mostrarPorIndice(i);
 		}
 
 		return perfiles;
@@ -212,30 +213,20 @@ public class Nerflis {
 	public void menuLaunch() {
 		int opcion = -1;
 		boolean opcionIncorrecta = false;
-		boolean menuRegistroEjecutado = false;
 
 		do {
-			if (menuRegistroEjecutado == false) {
-				System.out.println("\n>> Bienvenido a Nerflis << ");
-				System.out.println("\n > 1. Registrarse");
-				System.out.println(" > 2. Iniciar sesión");
-				System.out.println(" > 3. Salir del sistema\n");
-			} else {
-				System.out.println("\n > 2. Iniciar sesión");
-				System.out.println(" > 3. Salir del sistema\n");
-			}
+			System.out.println("\n>> Bienvenido a Nerflis << ");
+			System.out.println("\n > 1. Registrarse");
+			System.out.println(" > 2. Iniciar sesión");
+			System.out.println(" > 3. Salir del sistema\n");
 
 			opcion = input.nextInt();
 
 			switch (opcion) {
 			case 1:
 				input.nextLine();
-				if (menuRegistroEjecutado == false) {
-					menuRegistroEjecutado = menuRegistro();
-					System.out.println("> Registro exitoso!");
-				} else {
-					System.out.println("> Ya se encuentra registrado");
-				}
+				menuRegistro();
+				System.out.println("> Registro exitoso!");
 				break;
 
 			case 2:
@@ -273,9 +264,9 @@ public class Nerflis {
 				} else {
 					System.out.println("> Ingrese una contraseña");
 					clave = input.nextLine();
-					Usuario nuevo = new Estandar(mail, clave);
+					Estandar nuevo = new Estandar(mail, clave);
 					usuarios.agregar(nuevo);
-
+					usuariosEstandar.agregar(nuevo);
 					reintentar = false;
 					ejecucionExitosa = true;
 				}
@@ -294,10 +285,8 @@ public class Nerflis {
 
 	public void menuInicioSesion() {
 		String email, clave;
-
 		System.out.println("> Ingrese su email:");
 		email = input.nextLine();
-
 		System.out.println("> Ingrese su contraseña:");
 		clave = input.nextLine();
 
@@ -334,7 +323,8 @@ public class Nerflis {
 			System.out.println("\n >> Perfiles <<");
 			System.out.println("\n> 1. Crear un perfil");
 			System.out.println("> 2. Entrar a un perfil");
-			System.out.println("> 3. Volver");
+			System.out.println("> 3. Modificar mis datos");
+			System.out.println("> 4. Volver");
 
 			opcion = input.nextInt();
 
@@ -356,6 +346,42 @@ public class Nerflis {
 				break;
 
 			case 3:
+				modificarDatos(user);
+				break;
+			case 4:
+				break;
+
+			default:
+				System.out.println("> Opción incorrecta");
+				opcionIncorrecta = true;
+				break;
+
+			}
+		} while (opcion != 4 && opcionIncorrecta == false);
+	}
+
+	// ---------------------------------------- MODIFICAR ASPECTOS DE USUARIO
+
+	public void modificarDatos(Estandar user) {
+		int opcion = -1;
+		boolean opcionIncorrecta = false;
+
+		do {
+
+			System.out.println("\n> 1. Modificar Mail");
+			System.out.println("> 2. Modificar Contraseña");
+			System.out.println("> 3. Volver");
+
+			opcion = input.nextInt();
+
+			switch (opcion) {
+			case 1:
+				modificarMail(user);
+				break;
+			case 2:
+				modificarContrasenia(user);
+				break;
+			case 3:
 				break;
 
 			default:
@@ -365,6 +391,78 @@ public class Nerflis {
 
 			}
 		} while (opcion != 3 && opcionIncorrecta == false);
+	}
+
+	public void modificarContrasenia(Estandar user) {
+		boolean salir = false;
+		System.out.println("\n> Ingrese su nueva contraseña");
+		input.nextLine();
+		String nuevaClave = input.nextLine();
+
+		do {
+			System.out.println("\n> 1. Guardar cambios");
+			System.out.println("> 2. Volver");
+			int opcion = input.nextInt();
+			switch (opcion) {
+			case 1:
+				input.nextLine();
+				System.out.println(">\n Ingrese su anterior contraseña para guardar los cambios");
+				String clave = input.nextLine();
+				if (user.getClave().equals(clave)) {
+					user.setClave(nuevaClave);
+					System.out.println("\nContraseña modificada con exito!");
+					salir = true;
+				} else {
+					System.out.println("\nContraseña incorrecta");
+				}
+				break;
+			case 2:
+				System.out.println("\nLos cambios no fueron guardados");
+				salir = true;
+				break;
+
+			default:
+				System.out.println("\nOpcion incorrecta");
+				break;
+			}
+
+		} while (salir == false);
+	}
+
+	public void modificarMail(Estandar user) {
+		boolean salir = false;
+		System.out.println("\n> Ingrese su nuevo mail");
+		input.nextLine();
+		String nuevoMail = input.nextLine();
+
+		do {
+			System.out.println("\n> 1. Guardar cambios");
+			System.out.println("> 2. Volver");
+			int opcion = input.nextInt();
+			switch (opcion) {
+			case 1:
+				input.nextLine();
+				System.out.println("\n> Ingrese su contraseña para guardar los cambios");
+				String clave = input.nextLine();
+				if (user.getClave().equals(clave)) {
+					user.setMail(nuevoMail);
+					System.out.println("\nMail modificado con exito!");
+					salir = true;
+				} else {
+					System.out.println("\nContraseña incorrecta");
+				}
+				break;
+			case 2:
+				System.out.println("\n Los cambios no fueron guardados");
+				salir = true;
+				break;
+
+			default:
+				System.out.println("\nOpcion incorrecta");
+				break;
+			}
+
+		} while (salir == false);
 	}
 
 	// ---------------------------------------- 2.1. VERIFICACIÓN de PERFILES
@@ -463,7 +561,11 @@ public class Nerflis {
 				break;
 
 			case 5:
-				System.out.println(sugerencias(perfil));
+				if (perfil.getMiLista().estaVacia()) {
+					System.out.println("Tu lista esta vacia, no podemos darte recomendaciones");
+				} else {
+					System.out.println(sugerencias(perfil));
+				}
 				break;
 
 			case 6:
@@ -510,10 +612,13 @@ public class Nerflis {
 			Iterator<Elemento> it = elementos.iterador();
 			while (it.hasNext()) {
 				Elemento elem = it.next();
-				if (elem.getClasificacion().compareTo(Clasificacion.MAS7) == 0) {
+				if (elem.getClasificacion().compareTo(Clasificacion.MAS7) == 0 && elem instanceof Pelicula) {
 					contenido += elem.toString();
 				}
 			}
+		}
+		if(contenido.equals("")) {
+			contenido = "Las Peliculas disponibles no son aptas para ti";
 		}
 		return contenido;
 	}
@@ -528,10 +633,13 @@ public class Nerflis {
 			Iterator<Elemento> it = elementos.iterador();
 			while (it.hasNext()) {
 				Elemento elem = it.next();
-				if (elem.getClasificacion().compareTo(Clasificacion.MAS7) == 0) {
+				if (elem.getClasificacion().compareTo(Clasificacion.MAS7) == 0 && elem instanceof Serie) {
 					contenido += elem.toString();
 				}
 			}
+		}
+		if(contenido.equals("")) {
+			contenido = "Las series disponibles no son aptas para ti";
 		}
 		return contenido;
 	}
@@ -575,19 +683,19 @@ public class Nerflis {
 				input.nextLine();
 				aFiltrar = input.nextLine();
 
-				System.out.println(elementos.mostrarPorGenero(aFiltrar));
+				System.out.println(elementos.mostrarPorGenero(aFiltrar,perfil.isInfantil()));
 				break;
 
 			case 3:
-				System.out.println(elementos.mostrarPorOrdenAlfabetico());
+				System.out.println(elementos.mostrarPorOrdenAlfabetico(perfil.isInfantil()));
 				break;
 
 			case 4:
-				System.out.println(elementos.mostrarPorFecha());
+				System.out.println(elementos.mostrarPorFecha(perfil.isInfantil()));
 				break;
 
 			case 5:
-				System.out.println(elementos.mostrarPorPuntaje());
+				System.out.println(elementos.mostrarPorPuntaje(perfil.isInfantil()));
 				break;
 
 			case 6:
@@ -611,12 +719,19 @@ public class Nerflis {
 
 		while (it.hasNext()) {
 			Elemento actual = it.next();
-
-			if (actual.getGenero().equalsIgnoreCase(generoSugerencia)) {
+			if (perfil.isInfantil()) {
+				if (actual.getGenero().equalsIgnoreCase(generoSugerencia)
+						&& actual.getClasificacion().compareTo(Clasificacion.MAS7) == 0) {
+					aSugerir += "\n" + actual.toString();
+				}
+			} else if (actual.getGenero().equalsIgnoreCase(generoSugerencia)) {
 				aSugerir += "\n" + actual.toString();
 			}
-		}
 
+		}
+		if (aSugerir.equals("")) {
+			aSugerir = "No hay recomendaciones para ti";
+		}
 		return aSugerir;
 	}
 
@@ -722,7 +837,6 @@ public class Nerflis {
 				eliminarMiLista(perfil);
 				break;
 			case 4:
-				menuPerfil(perfil);
 				break;
 
 			default:
@@ -741,9 +855,13 @@ public class Nerflis {
 		String opcionID = "";
 		boolean flag = false;
 		while (flag == false) {
-			System.out.println(elementos.mostrarTodo());
+			if (perfil.isInfantil() == true) {
+				System.out.println(verTodo(perfil.isInfantil()));
+			} else {
+				System.out.println(elementos.mostrarTodo());
+			}
 			System.out.println("> Ingrese nombre del elemento a agregar:");
-			input.hasNextLine();
+			input.nextLine();
 			opcionID = input.nextLine();
 			Elemento aAgregar = elementos.buscar(opcionID);
 
@@ -824,7 +942,8 @@ public class Nerflis {
 
 			System.out.println("\n > 1. Buscar un Usuario");
 			System.out.println(" > 2. Alta o baja a un Usuario");
-			System.out.println(" > 3. Volver");
+			System.out.println(" > 3. Ver todos los usuarios");
+			System.out.println(" > 4. Volver");
 
 			opcion = input.nextInt();
 
@@ -860,6 +979,13 @@ public class Nerflis {
 				break;
 
 			case 3:
+				if (usuariosEstandar.estaVacia()) {
+					System.out.println("No hay usuarios registrados aun");
+				} else {
+					System.out.println(usuariosEstandar.mostrarTodo());
+				}
+				break;
+			case 4:
 				break;
 
 			default:
@@ -868,7 +994,7 @@ public class Nerflis {
 				break;
 
 			}
-		} while (opcion != 3 && opcionIncorrecta == false);
+		} while (opcion != 4 && opcionIncorrecta == false);
 	}
 
 	// ---------------------------------------- MÉTODOS de MENÚ USUARIOS para ADMIN
@@ -1247,6 +1373,35 @@ public class Nerflis {
 			}
 		} while (opcion != 8 && opcionIncorrecta == false);
 
+		actualizarCambios(e);
+	}
+
+	public void actualizarCambios(Elemento modificado) {
+		Iterator<Map.Entry<String, Estandar>> it = usuariosEstandar.iterador();
+		Estandar actual = null;
+		Elemento elemActual = null;
+		boolean encontrado = false;
+		int i = 0;
+		while (it.hasNext()) {
+			i = 0;
+			Map.Entry<String, Estandar> entrada = it.next();
+			actual = entrada.getValue();
+			if (!actual.getListaPerfiles().estaVacia()) {
+				for (i = 0; i < actual.getListaPerfiles().cantidadPerfiles(); i++) {
+					if (!actual.getListaPerfiles().retornar(i).getMiLista().estaVacia()) {
+						Iterator<Elemento> itElem = actual.getListaPerfiles().retornar(i).getMiLista().iterador();
+						while (itElem.hasNext() && encontrado == false) {
+							elemActual = itElem.next();
+							if (elemActual.getId() == modificado.getId()) {
+								actual.getListaPerfiles().retornar(i).getMiLista().borrar(elemActual);
+								actual.getListaPerfiles().retornar(i).getMiLista().agregar(modificado);
+								encontrado = true;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	// 4.2.4.7. Modificar aspectos de serie
@@ -1387,7 +1542,7 @@ public class Nerflis {
 		}
 	}
 
-	public void leerArchivoUsuarios() {	
+	public void leerArchivoUsuarios() {
 		FileInputStream fileInputStream;
 		try {
 			fileInputStream = new FileInputStream("Usuarios.bin");
@@ -1399,8 +1554,7 @@ public class Nerflis {
 				agregarUsuario(aGuardar);
 			}
 			objectInputStream.close();
-		}catch (EOFException e) {
-				System.out.println("Archivo finalizado");
+		} catch (EOFException e) {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1411,27 +1565,27 @@ public class Nerflis {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void guardarElementos() {
-	
-  
+
 		FileOutputStream fileOutputStream;
 		try {
 			fileOutputStream = new FileOutputStream("Elementos.bin");
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			Iterator<Elemento> iterador = elementos.iterador();
 			while (iterador.hasNext()) {
-		    Elemento elem = iterador.next();
-			objectOutputStream.writeObject(elem);}
+				Elemento elem = iterador.next();
+				objectOutputStream.writeObject(elem);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}			
+		}
 	}
 
 	public void leerElementos() {
@@ -1441,18 +1595,15 @@ public class Nerflis {
 		try {
 			fileInputStream = new FileInputStream("Elementos.bin");
 			objectInputStream = new ObjectInputStream(fileInputStream);
-			int lectura =1;
-			while(lectura ==1)
-			{
-				Elemento aLeer = (Elemento)objectInputStream.readObject();
-		        elementos.agregar(aLeer);
+			int lectura = 1;
+			while (lectura == 1) {
+				Elemento aLeer = (Elemento) objectInputStream.readObject();
+				elementos.agregar(aLeer);
 			}
-		    
 
-		objectInputStream.close();
+			objectInputStream.close();
 		} catch (EOFException e) {
-				System.out.println("Archivo finalizado");
-		}catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -1484,7 +1635,6 @@ public class Nerflis {
 			objectOutputStream.close();
 
 		} catch (FileNotFoundException fnf) {
-			System.out.println("Fin del archivo");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1497,27 +1647,24 @@ public class Nerflis {
 		try {
 			fileInputStream = new FileInputStream("UsuariosEstandar.bin");
 			objectInputStream = new ObjectInputStream(fileInputStream);
-			
+
 			int lectura = -1;
-			while(lectura == 1)
-			{
-				Estandar usu = (Estandar)objectInputStream.readObject();
+			while (lectura == 1) {
+				Estandar usu = (Estandar) objectInputStream.readObject();
 			}
-			
+
 			objectInputStream.close();
 		} catch (FileNotFoundException fnf) {
 			System.out.println("Fin del archivo");
-			}
-		catch (EOFException eof) {
+		} catch (EOFException eof) {
 			System.out.println(eof.getMessage());
-		}
-		 catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void guardarUsuariosAdmins() {
 
 		FileOutputStream fileOutputStream;
@@ -1551,26 +1698,21 @@ public class Nerflis {
 		try {
 			fileInputStream = new FileInputStream("UsuariosAdmin.bin");
 			objectInputStream = new ObjectInputStream(fileInputStream);
-			
+
 			int lectura = -1;
-			while(lectura == 1)
-			{
-				Admin usu = (Admin)objectInputStream.readObject();
+			while (lectura == 1) {
+				Admin usu = (Admin) objectInputStream.readObject();
 			}
-			
+
 			objectInputStream.close();
 		} catch (FileNotFoundException fnf) {
 			System.out.println("Fin del archivo");
-			}
-		catch (EOFException eof) {
+		} catch (EOFException eof) {
 			System.out.println(eof.getMessage());
-		}
-		 catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 }
-
-

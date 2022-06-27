@@ -90,4 +90,9 @@ public class ListaAdmins implements I_RUD<Admin>, Serializable{
 			System.out.println(e.getMessage());
 		}
 	}
+
+	@Override
+	public boolean estaVacia() {
+		return hashmapAdmins.estaVacio();
+	}
 }

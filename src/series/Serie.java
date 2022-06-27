@@ -3,6 +3,7 @@ package series;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,12 +30,10 @@ public class Serie extends Elemento implements Serializable {
 	}
 
 	// Getters y Setters
+
+
 	public ArrayList<Temporada> getListaTemporadas() {
 		return listaTemporadas;
-	}
-
-	public void setListaTemporadas(ArrayList<Temporada> listaTemporadas) {
-		this.listaTemporadas = listaTemporadas;
 	}
 
 	public int getCantTemporadas() {
@@ -65,7 +64,7 @@ public class Serie extends Elemento implements Serializable {
 
     // ---------------------------------------- MÉTODO JSON
 	@Override
-	public JSONObject devolverJsonObject() throws JSONException {
+	public JSONObject elementoToJSON() throws JSONException {
 		JSONObject serie = new JSONObject();
 
 		serie.put("ID", getId());
@@ -75,8 +74,15 @@ public class Serie extends Elemento implements Serializable {
 		serie.put("Año de estreno", getAnioDeEstreno());
 		serie.put("Clasificación", getClasificacion());
 		serie.put("Elenco", getElenco());
-		serie.put("# Temporadas", getCantTemporadas());
-		serie.put("Descripción Temporadas", getListaTemporadas());
+		
+		JSONArray arrayTemporadas = new JSONArray();
+		
+		for(int i = 0; i<listaTemporadas.size(); i++)
+		{
+			arrayTemporadas.put(listaTemporadas.get(i).temporadaToJSON());
+		}
+		
+		serie.put("Temporada",arrayTemporadas);
 
 		return serie;
 	}

@@ -3,6 +3,7 @@ package usuarios;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import contenedoresGenericos.GenericHashMap;
 import excepciones.ExcepcionExistencia;
@@ -72,6 +73,7 @@ public class ListaEstandares implements I_RUD<Estandar>, Serializable{
 		
 		return aRetornar;
    }
+ 
     
     // Agregar un Usuario Estándar
     @Override
@@ -91,7 +93,14 @@ public class ListaEstandares implements I_RUD<Estandar>, Serializable{
 		{
 			System.out.println(e.getMessage());
 		}
-    	
-    	
     }
+    
+    public Iterator<Entry<String, Estandar>> iterador() {
+		return hashmapUsuariosEstandar.iterador();
+	}
+
+	@Override
+	public boolean estaVacia() {
+		return hashmapUsuariosEstandar.estaVacio();
+	}
 }

@@ -136,6 +136,6 @@ public abstract class Elemento implements Serializable{
 	}
 	
 	// ---------------------------------------- FIRMA DEL MÉTODO JSON
-	public abstract JSONObject devolverJsonObject() throws JSONException;
+	public abstract JSONObject elementoToJSON() throws JSONException;
 
 }

@@ -75,4 +75,9 @@ public class ListaPeliculas implements I_RUD<Pelicula>, Serializable{
 		}
 		
 	}
+
+	@Override
+	public boolean estaVacia() {
+		return hashSetPeliculas.estaVacio();
+	}
 }
